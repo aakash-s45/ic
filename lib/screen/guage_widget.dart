@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:ic/screen/guage_paint.dart';
+import 'package:ic/screen/paints/guage_paint.dart';
 import 'package:ic/screen/guage_props.dart';
 
 class CustomGuage extends StatelessWidget {

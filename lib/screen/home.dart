@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ic/screen/guage_props.dart';
 import 'package:ic/screen/guage_widget.dart';
+import 'package:ic/screen/paints/bottombar_paint.dart';
+import 'package:ic/screen/paints/topbar_paint.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -49,35 +50,41 @@ class _HomeState extends State<Home> {
             children: [
               Flexible(
                 flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      // "hello",
-                      "${currentTime.day}-${currentTime.month}",
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 184, 183, 183),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                child: SizedBox(
+                  width: 400,
+                  height: 70,
+                  child: CustomPaint(
+                    painter: TopBarPainter(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${currentTime.day}-${currentTime.month}",
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 184, 183, 183),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(width: 40),
+                        Text(
+                          // "hello",
+                          "${currentTime.hour}:${currentTime.minute}",
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(width: 40),
+                        const Text(
+                          "23 ${"\u2109"}",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 184, 183, 183),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 40),
-                    Text(
-                      // "hello",
-                      "${currentTime.hour}:${currentTime.minute}",
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(width: 40),
-                    const Text(
-                      "${23}${"\u2109"}",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 184, 183, 183),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Flexible(
@@ -113,9 +120,10 @@ class _HomeState extends State<Home> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
-                            "images/image.png",
+                            "images/logo.png",
                             scale: 0.3,
                             width: 120,
+                            // color: Colors.yellow,
                           ),
                         ),
                       ),
@@ -139,10 +147,14 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              const Flexible(
+              Flexible(
                   flex: 1,
-                  child: Placeholder(
-                    color: Colors.black,
+                  child: Container(
+                    width: 400,
+                    height: 60,
+                    child: CustomPaint(
+                      painter: BottomBarPainter(),
+                    ),
                   )),
             ],
           ),
