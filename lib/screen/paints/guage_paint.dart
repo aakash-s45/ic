@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:ic/screen/guage_props.dart';
 
@@ -22,12 +21,12 @@ class GuagePainter extends CustomPainter {
 
     final zeroTickPaint = Paint()
       ..strokeWidth = ((7 / 200) * (radius))
-      ..shader = ui.Gradient.radial(
-          center, radius1, [Colors.black, Colors.white], [1, 0.5]);
+      ..shader = ui.Gradient.radial(center, radius1,
+          [Colors.black, const Color.fromARGB(255, 244, 242, 231)], [1, 0.5]);
     final maxTickPaint = Paint()
       ..strokeWidth = ((7 / 200) * (radius))
-      ..shader = ui.Gradient.radial(
-          center, radius1, [Colors.black, Colors.white], [1, 0.5]);
+      ..shader = ui.Gradient.radial(center, radius1,
+          [Colors.black, const Color.fromARGB(255, 244, 242, 231)], [1, 0.5]);
 
     final speedPathStrokePaint = Paint()
       ..style = PaintingStyle.stroke
@@ -42,7 +41,7 @@ class GuagePainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..shader = ui.Gradient.radial(center, radius1, [
         const ui.Color.fromARGB(0, 0, 0, 0),
-        const Color.fromARGB(130, 251, 254, 169)
+        const Color.fromARGB(156, 254, 253, 169)
       ], [
         0.8,
         1
@@ -50,7 +49,14 @@ class GuagePainter extends CustomPainter {
 
     final outerPathPaint = ui.Paint()
       ..style = PaintingStyle.fill
-      ..color = const ui.Color.fromARGB(255, 233, 73, 71);
+      // ..color = const ui.Color.fromARGB(255, 233, 73, 71);
+      ..shader = ui.Gradient.radial(
+        center,
+        radius,
+        [Colors.black, const ui.Color.fromARGB(255, 233, 73, 71)],
+        [0.8, 0.9],
+        // [0.65, 0.9],
+      );
 
     final innerPathPaint = Paint()
       ..style = PaintingStyle.fill
@@ -80,18 +86,12 @@ class GuagePainter extends CustomPainter {
     var speedStrokePath = Path();
     speedStrokePath.moveTo(center.dx, center.dy);
     speedStrokePath.addArc(
-        Rect.fromCircle(
-            center: center, radius: radius + ((3 / 200) * (radius))),
-        0,
-        speedAngle);
+        Rect.fromCircle(center: center, radius: radius), 0, speedAngle);
     speedStrokePath.lineTo(center.dx, center.dy);
 
     var speedFillPath = Path();
     speedFillPath.addArc(
-        Rect.fromCircle(
-            center: center, radius: radius + ((5 / 200) * (radius))),
-        0,
-        speedAngle);
+        Rect.fromCircle(center: center, radius: radius), 0, speedAngle);
     speedFillPath.lineTo(center.dx, center.dy);
     speedFillPath.close();
 
@@ -99,7 +99,7 @@ class GuagePainter extends CustomPainter {
     canvas.drawPath(speedStrokePath, speedPathStrokePaint);
     canvas.drawLine(
         center,
-        Offset(center.dx + (radius + ((6 / 200) * (radius))), center.dy),
+        Offset(center.dx + (radius + ((3 / 200) * (radius))), center.dy),
         zeroTickPaint);
     canvas.drawLine(
         center,

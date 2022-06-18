@@ -1,0 +1,17 @@
+
+Libraries and Dependencies
+- [ ] flutter_riverpod: ^1.0.4 : MIT
+    - [ ]  Collection: BSD-3-Clause
+    - [ ] Meta :BSD-3-Clause
+    - [ ] Flutter
+    - [ ] state_notifier : MIT
+    - [ ] Riverpod : MIT 
+- [ ] flutter_hooks: ^0.18.5: MIT
+    - [ ] Flutter
+- [ ] hooks_riverpod :MIT
+    - [ ] Collection
+    - [ ] flutter
+    - [ ] flutter_hooks
+    - [ ] flutter_riverpod
+    - [ ] riverbed
+    - [ ] state_notifier
