@@ -13,10 +13,9 @@ class BottomBarPainter extends CustomPainter {
     double y = height;
 
     final double width = size.width - 2 * x;
-    final center = Offset(x + (width / 2), y / 2);
 // 244 242 231
     final paint = Paint()
-      ..color = ui.Color.fromARGB(255, 36, 36, 36)
+      ..color = const ui.Color.fromARGB(255, 36, 36, 36)
       ..strokeWidth = 5
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
@@ -25,9 +24,10 @@ class BottomBarPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..shader = ui.Gradient.linear(
           Offset((x + width / 2), 0), Offset((x + width / 2), height), [
-        ui.Color.fromARGB(255, 25, 24, 24),
+        const ui.Color.fromARGB(255, 25, 24, 24),
         Colors.black,
       ]);
+
     final path = Path()
       ..moveTo(0, size.height)
       ..lineTo(x, size.height - y)
@@ -39,6 +39,7 @@ class BottomBarPainter extends CustomPainter {
       ..lineTo(x, size.height - y)
       ..lineTo(x + width, size.height - y)
       ..lineTo(size.width, size.height);
+
     canvas.drawPath(path, paint);
     canvas.drawPath(path2, paint2);
   }

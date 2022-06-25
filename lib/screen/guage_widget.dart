@@ -56,13 +56,10 @@ class CustomGuage extends StatelessWidget {
             top: 0,
             child: Transform.rotate(
               angle: (pi / 2) + (GuageProps.minorAngle * (pi / 360.0)),
-              child: SizedBox(
-                width: size ?? 400,
-                height: size ?? 400,
-                child: CustomPaint(
-                  painter: GuagePainter(
-                      low: low, high: high, currentSpeed: mainValue),
-                ),
+              child: CustomPaint(
+                size: Size(size ?? 400, size ?? 400),
+                painter:
+                    GuagePainter(low: low, high: high, currentSpeed: mainValue),
               ),
             ),
           ),

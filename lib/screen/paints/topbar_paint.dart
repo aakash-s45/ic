@@ -13,10 +13,10 @@ class TopBarPainter extends CustomPainter {
     double y = height;
 
     final double width = size.width - 2 * x;
-    final center = Offset(x + (width / 2), y / 2);
+    // final center = Offset(x + (width / 2), y / 2);
 // 244 242 231
     final paint = Paint()
-      ..color = ui.Color.fromARGB(255, 49, 47, 47)
+      ..color = const ui.Color.fromARGB(255, 49, 47, 47)
       ..strokeWidth = 5
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
@@ -26,7 +26,7 @@ class TopBarPainter extends CustomPainter {
       ..shader = ui.Gradient.linear(
           Offset((x + width / 2), 0),
           Offset((x + width / 2), height),
-          [Colors.black, ui.Color.fromARGB(255, 32, 31, 31)]);
+          [Colors.black, const ui.Color.fromARGB(255, 32, 31, 31)]);
     final path = Path()
       ..lineTo(x, y)
       ..lineTo(x + width, y)
