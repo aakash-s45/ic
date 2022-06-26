@@ -2,4 +2,4 @@
 
 A new Flutter project.
 
-<img width="1142" alt="demo" src="https://user-images.githubusercontent.com/75980718/174615644-81c0448f-deda-4d9f-988f-11be60543ef7.png">
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/75980718/175805230-72f96673-2730-428e-aa30-e6d85f8d9d38.gif)
