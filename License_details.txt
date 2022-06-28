@@ -16,6 +16,6 @@ Libraries and Dependencies
     - flutter
     - flutter_hooks
     - flutter_riverpod
-    - riverbed
+    - riverpod
     - state_notifier
 ---------------------------------
