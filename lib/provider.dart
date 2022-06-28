@@ -13,7 +13,7 @@ class Speed extends StateNotifier<double> {
   // Speed() : super(0);
   late final Timer _timer;
   Speed() : super(0) {
-    _timer = Timer.periodic(const Duration(milliseconds: 500), (_) {
+    _timer = Timer.periodic(const Duration(milliseconds: 2000), (_) {
       random();
     });
   }
@@ -33,13 +33,13 @@ class RPM extends StateNotifier<double> {
   // RPM() : super(100);
   late final Timer _timer;
   RPM() : super(0) {
-    _timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
+    _timer = Timer.periodic(const Duration(milliseconds: 2000), (_) {
       random();
     });
   }
   void increment() => state++;
   void random() {
-    state = (1 + Random().nextDouble() * 500);
+    state = (1 + Random().nextDouble() * 8000);
   }
 }
 

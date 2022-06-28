@@ -8,8 +8,8 @@ import 'package:ic/screen/widgets/left_bar.dart';
 import 'package:ic/screen/widgets/left_signal.dart';
 import 'package:ic/screen/widgets/right_bar.dart';
 import 'package:ic/screen/widgets/right_signal.dart';
-import 'package:ic/screen/widgets/rpm_guage.dart';
-import 'package:ic/screen/widgets/speed_guage.dart';
+import 'package:ic/screen/widgets/rpm_guage_animation_wrapper.dart';
+import 'package:ic/screen/widgets/speed_guage_animation_wrapper.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class Home extends ConsumerWidget {
     final clock = ref.watch(clockProvider);
     final turn = ref.watch(turnSignalProvider);
     final gear = ref.watch(gearProvider);
-    const double screenRatio = 16 / 9;
+    // const double screenRatio = 16 / 9;
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     print("h:$screenHeight");
