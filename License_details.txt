@@ -1,17 +1,29 @@
 
 Libraries and Dependencies
-- [ ] flutter_riverpod: ^1.0.4 : MIT
-    - [ ]  Collection: BSD-3-Clause
-    - [ ] Meta :BSD-3-Clause
-    - [ ] Flutter
-    - [ ] state_notifier : MIT
-    - [ ] Riverpod : MIT 
-- [ ] flutter_hooks: ^0.18.5: MIT
-    - [ ] Flutter
-- [ ] hooks_riverpod :MIT
-    - [ ] Collection
-    - [ ] flutter
-    - [ ] flutter_hooks
-    - [ ] flutter_riverpod
-    - [ ] riverbed
-    - [ ] state_notifier
+================================
+* flutter_riverpod: ^1.0.4 : MIT
+    - collection: BSD-3-Clause
+    - meta :BSD-3-Clause
+    - flutter
+    - state_notifier : MIT
+    - riverpod : MIT 
+---------------------------------
+* flutter_hooks: ^0.18.5: MIT
+    - flutter
+---------------------------------
+* hooks_riverpod :MIT
+    - collection
+    - flutter
+    - flutter_hooks
+    - flutter_riverpod
+    - riverpod
+    - state_notifier
+---------------------------------
+* web_socket_channel :BSD-3-Clause
+    - async: BSD-3-Clause
+    - crypto: BSD-3-Clause
+    - typed_data: BSD-3-Clause
+    - stream_channel: BSD-3-Clause
+    - collection
+    - meta
+---------------------------------
