@@ -8,7 +8,7 @@ Instrument Cluster for AGL flutter build
 
 *Basic Flutter SDK is required to run this app locally*
 
-1. Go to the projet directory
+1. Go to the project directory
 2. First run `flutter create .`
 3. Then to run the app `flutter run`
 
