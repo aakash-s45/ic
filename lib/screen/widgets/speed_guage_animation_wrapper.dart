@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ic/provider.dart';
 import 'package:ic/screen/guage_widget.dart';
+import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
+import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
 
 class SpeedGauge extends HookConsumerWidget {
   final double screenHeight;
@@ -11,7 +12,9 @@ class SpeedGauge extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final double cSpeed = ref.watch(speedProvider);
+    final VehicleSignal vehicle = ref.watch(vehicleSignalProvider);
+    // final double cSpeed = ref.watch(speedProvider);
+
     const double minSpeed = 0;
     const double maxSpeed = 240;
     const Duration sweepDuration = Duration(milliseconds: 200);
@@ -19,7 +22,7 @@ class SpeedGauge extends HookConsumerWidget {
     final animationController = useAnimationController(
       lowerBound: minSpeed,
       upperBound: maxSpeed,
-    )..animateTo(cSpeed,
+    )..animateTo(vehicle.speed,
         duration: sweepDuration, curve: Curves.linearToEaseOut);
 
     return AnimatedBuilder(

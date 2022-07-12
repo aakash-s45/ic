@@ -75,7 +75,7 @@ packages:
       name: flutter_hooks
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.18.5"
+    version: "0.18.5+1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -137,6 +137,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
+  polo_client:
+    dependency: "direct main"
+    description:
+      name: polo_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   riverpod:
     dependency: transitive
     description:

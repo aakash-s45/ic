@@ -51,13 +51,12 @@ final engineHeatProvider = StateNotifierProvider<Heat, double>((ref) {
 class Heat extends StateNotifier<double> {
   late final Timer _timer;
   Heat() : super(0) {
-    _timer = Timer.periodic(const Duration(seconds: 2), (_) {
-      random();
+    _timer = Timer(const Duration(seconds: 2), () {
+      update(100);
     });
   }
-  void random() {
-    state = (1 + Random().nextDouble() * 100);
-    // print(state);
+  void update(double val) {
+    state = val;
   }
 }
 
@@ -68,15 +67,17 @@ final fuelProvider = StateNotifierProvider<Fuel, double>((ref) {
 
 class Fuel extends StateNotifier<double> {
   late final Timer _timer;
+
   Fuel() : super(0) {
-    _timer = Timer.periodic(const Duration(seconds: 2), (_) {
-      random();
+    _timer = Timer(const Duration(seconds: 2), () {
+      update(100);
     });
   }
-  void random() {
-    state = (1 + Random().nextDouble() * 100);
-    // print(state);
+  void update(double val) {
+    state = val;
   }
+
+  // void update();
 }
 
 // -------------------------------------------------------------
@@ -132,57 +133,57 @@ class TurnSignal {
 }
 
 // -------------------------------------------------------------
-final gearProvider = StateNotifierProvider<GearInfo, int>((ref) {
-  return GearInfo();
-});
+// final gearProvider = StateNotifierProvider<GearInfo, int>((ref) {
+//   return GearInfo();
+// });
 
-class GearInfo extends StateNotifier<int> {
-  late final Timer _timer;
-  GearInfo() : super(Gear.neutral) {
-    _timer = Timer.periodic(const Duration(seconds: 2), (_) {
-      random();
-    });
-  }
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
+// class GearInfo extends StateNotifier<int> {
+//   late final Timer _timer;
+//   GearInfo() : super(Gear.neutral) {
+//     _timer = Timer.periodic(const Duration(seconds: 2), (_) {
+//       random();
+//     });
+//   }
+//   @override
+//   void dispose() {
+//     _timer.cancel();
+//     super.dispose();
+//   }
 
-  void random() {
-    state = (1 + Random().nextInt(4));
-  }
-}
+//   void random() {
+//     state = (1 + Random().nextInt(4));
+//   }
+// }
 
 class Gear {
-  static int parking = 1;
-  static int drive = 2;
-  static int neutral = 3;
-  static int reverse = 4;
+  static String parking = "P";
+  static String drive = "D";
+  static String neutral = "N";
+  static String reverse = "R";
 }
 
 // -------------------------------------------------------------
-final indicatorProvider = StateNotifierProvider<IndicatorInfo, int>((ref) {
-  return IndicatorInfo();
-});
+// final indicatorProvider = StateNotifierProvider<IndicatorInfo, int>((ref) {
+//   return IndicatorInfo();
+// });
 
-class IndicatorInfo extends StateNotifier<int> {
-  late final Timer _timer;
-  IndicatorInfo() : super(Gear.neutral) {
-    _timer = Timer.periodic(const Duration(seconds: 2), (_) {
-      random();
-    });
-  }
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
+// class IndicatorInfo extends StateNotifier<int> {
+//   late final Timer _timer;
+//   IndicatorInfo() : super(Gear.neutral) {
+//     _timer = Timer.periodic(const Duration(seconds: 2), (_) {
+//       random();
+//     });
+//   }
+//   @override
+//   void dispose() {
+//     _timer.cancel();
+//     super.dispose();
+//   }
 
-  void random() {
-    state = (1 + Random().nextInt(4));
-  }
-}
+//   void random() {
+//     state = (1 + Random().nextInt(4));
+//   }
+// }
 
-class Indicators {}
+// class Indicators {}
 // -------------------------------------------------------------

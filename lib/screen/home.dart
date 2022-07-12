@@ -6,26 +6,35 @@ import 'package:ic/screen/paints/bottombar_paint.dart';
 import 'package:ic/screen/paints/topbar_paint.dart';
 import 'package:ic/screen/widgets/left_bar.dart';
 import 'package:ic/screen/widgets/left_signal.dart';
+import 'package:ic/screen/widgets/performance_mode.dart';
 import 'package:ic/screen/widgets/right_bar.dart';
 import 'package:ic/screen/widgets/right_signal.dart';
 import 'package:ic/screen/widgets/rpm_guage_animation_wrapper.dart';
 import 'package:ic/screen/widgets/speed_guage_animation_wrapper.dart';
+import 'package:ic/vehicle_signal/vehicle_signal_methods.dart';
+import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final vehicle = ref.watch(vehicleSignalProvider);
+
     final clock = ref.watch(clockProvider);
-    final turn = ref.watch(turnSignalProvider);
-    final gear = ref.watch(gearProvider);
+    // final turn = ref.watch(turnSignalProvider);
+    // final gear = ref.watch(gearProvider);
+
     // const double screenRatio = 16 / 9;
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    print("h:$screenHeight");
-    print("w:$screenWidth");
+    // print("h:$screenHeight");
+    // print("w:$screenWidth");
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        VISS.get(ref, "Vehicle.Body.Lights.IsLeftIndicatorOn");
+      }),
       backgroundColor: GuageProps.bgColor,
       body: SafeArea(
         child: Center(
@@ -41,15 +50,14 @@ class Home extends ConsumerWidget {
                     // left turn
                     Flexible(
                       flex: 2,
-                      child:
-                          (turn == TurnSignal.left || turn == TurnSignal.both)
-                              ? LeftSignal(screenHeight: screenHeight)
-                              : Image.asset(
-                                  "images/left.png",
-                                  color: const Color.fromARGB(255, 49, 48, 48),
-                                  width: 0.125 * screenHeight,
-                                  // width: 60,
-                                ),
+                      child: (vehicle.isLeftIndicator)
+                          ? LeftSignal(screenHeight: screenHeight)
+                          : Image.asset(
+                              "images/left.png",
+                              color: const Color.fromARGB(255, 49, 48, 48),
+                              width: 0.125 * screenHeight,
+                              // width: 60,
+                            ),
                     ),
                     // mid section of top bar
                     Flexible(
@@ -96,14 +104,13 @@ class Home extends ConsumerWidget {
                     // right turn
                     Flexible(
                       flex: 2,
-                      child:
-                          (turn == TurnSignal.right || turn == TurnSignal.both)
-                              ? RightSignal(screenHeight: screenHeight)
-                              : Image.asset(
-                                  "images/right.png",
-                                  color: const Color.fromARGB(255, 49, 48, 48),
-                                  width: 0.125 * screenHeight,
-                                ),
+                      child: (vehicle.isRightIndicator)
+                          ? RightSignal(screenHeight: screenHeight)
+                          : Image.asset(
+                              "images/right.png",
+                              color: const Color.fromARGB(255, 49, 48, 48),
+                              width: 0.125 * screenHeight,
+                            ),
                     ),
                   ],
                 ),
@@ -149,31 +156,47 @@ class Home extends ConsumerWidget {
                         children: [
                           Flexible(
                             flex: 1,
-                            child: Image.asset(
-                              "images/eco.png",
-                              color: Colors.green,
-                              width: (40 * screenHeight) / 480,
-                            ),
+                            child: PerformanceMode(
+                                size: Size((100 * screenHeight) / 480, 30),
+                                mode: vehicle.performanceMode),
+                            // child: Image.asset(
+                            //   "images/eco.png",
+                            //   color: Colors.green,
+                            //   width: (40 * screenHeight) / 480,
+                            // ),
                           ),
                           Flexible(
                             flex: 2,
                             child: Image.asset(
                               "images/logo_agl.png",
-                              width: (100 * screenHeight) / 480,
+                              width: (90 * screenHeight) / 480,
                               color: Colors.grey.shade600,
                             ),
                           ),
                           Flexible(
                             flex: 1,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            child: Wrap(
+                              spacing: 14,
+                              runAlignment: WrapAlignment.spaceBetween,
+                              alignment: WrapAlignment.spaceEvenly,
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Image.asset("images/low-beam.png",
-                                    color: Colors.white,
-                                    width: (20 * screenHeight) / 480),
-                                Image.asset("images/hazard.png",
-                                    color: Colors.white,
-                                    width: (20 * screenHeight) / 480),
+                                // if (vehicle.isParkingOn)
+                                //   Image.asset("images/parking-light.png",
+                                //       color: Colors.white,
+                                //       width: (20 * screenHeight) / 480),
+                                if (vehicle.isLowBeam)
+                                  Image.asset("images/low-beam.png",
+                                      color: Colors.white,
+                                      width: (20 * screenHeight) / 480),
+                                if (vehicle.isHighBeam)
+                                  Image.asset("images/high-beam.png",
+                                      color: Colors.white,
+                                      width: (20 * screenHeight) / 480),
+                                if (vehicle.isHazardLightOn)
+                                  Image.asset("images/hazard.png",
+                                      color: Colors.white,
+                                      width: (20 * screenHeight) / 480),
                                 Image.asset("images/battery.png",
                                     color: Colors.white,
                                     width: (20 * screenHeight) / 480),
@@ -221,22 +244,22 @@ class Home extends ConsumerWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            (gear == Gear.parking)
+                            (vehicle.selectedGear == Gear.parking)
                                 ? const Text("P",
                                     style: GuageProps.activeGearIconStyle)
                                 : const Text("P",
                                     style: GuageProps.gearIconStyle),
-                            (gear == Gear.reverse)
+                            (vehicle.selectedGear == Gear.reverse)
                                 ? const Text("R",
                                     style: GuageProps.activeGearIconStyle)
                                 : const Text("R",
                                     style: GuageProps.gearIconStyle),
-                            (gear == Gear.neutral)
+                            (vehicle.selectedGear == Gear.neutral)
                                 ? const Text("N",
                                     style: GuageProps.activeGearIconStyle)
                                 : const Text("N",
                                     style: GuageProps.gearIconStyle),
-                            (gear == Gear.drive)
+                            (vehicle.selectedGear == Gear.drive)
                                 ? const Text("D",
                                     style: GuageProps.activeGearIconStyle)
                                 : const Text("D",
