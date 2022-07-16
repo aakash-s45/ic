@@ -6,10 +6,16 @@ import 'package:ic/screen/guage_props.dart';
 class GuagePainter extends CustomPainter {
   final double low, high;
   double currentSpeed;
+  final Color? outPrimaryColor;
+  final Color? inPrimaryColor;
+  final Color? secondaryColor;
   GuagePainter({
     required this.low,
     required this.high,
     required this.currentSpeed,
+    this.outPrimaryColor,
+    this.inPrimaryColor,
+    this.secondaryColor,
   });
   @override
   void paint(Canvas canvas, Size size) {
@@ -41,7 +47,8 @@ class GuagePainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..shader = ui.Gradient.radial(center, radius1, [
         const ui.Color.fromARGB(0, 0, 0, 0),
-        const Color.fromARGB(156, 254, 253, 169)
+        secondaryColor ?? const Color.fromARGB(156, 254, 253, 169)
+        // const Color.fromARGB(156, 254, 253, 169)
       ], [
         0.8,
         1
@@ -53,15 +60,23 @@ class GuagePainter extends CustomPainter {
       ..shader = ui.Gradient.radial(
         center,
         radius,
-        [Colors.black, const ui.Color.fromARGB(255, 233, 73, 71)],
+        [
+          Colors.black,
+          outPrimaryColor ?? const ui.Color.fromARGB(255, 233, 73, 71)
+        ],
         [0.8, 0.9],
         // [0.65, 0.9],
       );
 
     final innerPathPaint = Paint()
       ..style = PaintingStyle.fill
-      ..shader = ui.Gradient.radial(center, radius1,
-          [Colors.black, const ui.Color.fromRGBO(168, 42, 47, 1)], [0.65, 0.9]);
+      ..shader = ui.Gradient.radial(center, radius1, [
+        Colors.black,
+        inPrimaryColor ?? const ui.Color.fromRGBO(168, 42, 47, 1)
+      ], [
+        0.65,
+        0.9
+      ]);
 
     for (double i = 0; i < 13; i++) {
       double startAngle = GuageProps.degToRad(i * 20);

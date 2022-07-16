@@ -17,6 +17,9 @@ class CustomGuage extends StatelessWidget {
     this.distLabelTop,
     this.distMainTop,
     this.distTicksBottom,
+    this.inPrimaryColor,
+    this.outPrimaryColor,
+    this.secondaryColor,
   }) : super(key: key);
 
   final double mainValue;
@@ -30,6 +33,9 @@ class CustomGuage extends StatelessWidget {
   final double? distMainTop;
   final double? distLabelTop;
   final double? size;
+  final Color? outPrimaryColor;
+  final Color? inPrimaryColor;
+  final Color? secondaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +64,14 @@ class CustomGuage extends StatelessWidget {
               angle: (pi / 2) + (GuageProps.minorAngle * (pi / 360.0)),
               child: CustomPaint(
                 size: Size(size ?? 400, size ?? 400),
-                painter:
-                    GuagePainter(low: low, high: high, currentSpeed: mainValue),
+                painter: GuagePainter(
+                  low: low,
+                  high: high,
+                  currentSpeed: mainValue,
+                  inPrimaryColor: inPrimaryColor,
+                  outPrimaryColor: outPrimaryColor,
+                  secondaryColor: secondaryColor,
+                ),
               ),
             ),
           ),

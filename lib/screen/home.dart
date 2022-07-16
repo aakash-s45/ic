@@ -11,37 +11,37 @@ import 'package:ic/screen/widgets/right_bar.dart';
 import 'package:ic/screen/widgets/right_signal.dart';
 import 'package:ic/screen/widgets/rpm_guage_animation_wrapper.dart';
 import 'package:ic/screen/widgets/speed_guage_animation_wrapper.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_methods.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
+  GuageColors? getGuageColor(String mode) {
+    return (mode == "economy")
+        ? GuageProps.ecoModeColor
+        : (mode == "sport")
+            ? GuageProps.sportModeColor
+            : null;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vehicle = ref.watch(vehicleSignalProvider);
-
     final clock = ref.watch(clockProvider);
-    // final turn = ref.watch(turnSignalProvider);
-    // final gear = ref.watch(gearProvider);
-
-    // const double screenRatio = 16 / 9;
-    // final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    // print("h:$screenHeight");
-    // print("w:$screenWidth");
 
     return Scaffold(
       backgroundColor: GuageProps.bgColor,
       body: SafeArea(
         child: Center(
-          child: Column(
+          child: Flex(
+            direction: Axis.vertical,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //TopBarPainter
               Flexible(
-                child: Row(
+                child: Flex(
+                  direction: Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     // left turn
@@ -86,7 +86,7 @@ class Home extends ConsumerWidget {
                               ),
                               SizedBox(width: (30 * screenHeight) / 480),
                               Text(
-                                "23 ${"\u2109"}",
+                                "${vehicle.ambientAirTemp} ${"\u2109"}",
                                 style: TextStyle(
                                     color: const Color.fromARGB(
                                         255, 184, 183, 183),
@@ -116,10 +116,9 @@ class Home extends ConsumerWidget {
               Flexible(
                 flex: 4,
                 fit: FlexFit.tight,
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                child: Row(
+                child: Flex(
+                  clipBehavior: Clip.none,
+                  direction: Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -143,7 +142,10 @@ class Home extends ConsumerWidget {
                     // Guage 1
                     Flexible(
                         flex: 10,
-                        child: SpeedGauge(screenHeight: screenHeight)),
+                        child: SpeedGauge(
+                          screenHeight: screenHeight,
+                          guageColor: getGuageColor(vehicle.performanceMode),
+                        )),
                     //logo area
                     Flexible(
                       flex: 5,
@@ -151,17 +153,14 @@ class Home extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          // performance mode
                           Flexible(
                             flex: 1,
                             child: PerformanceMode(
                                 size: Size((100 * screenHeight) / 480, 30),
                                 mode: vehicle.performanceMode),
-                            // child: Image.asset(
-                            //   "images/eco.png",
-                            //   color: Colors.green,
-                            //   width: (40 * screenHeight) / 480,
-                            // ),
                           ),
+                          // logo
                           Flexible(
                             flex: 2,
                             child: Image.asset(
@@ -178,10 +177,6 @@ class Home extends ConsumerWidget {
                               alignment: WrapAlignment.spaceEvenly,
                               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                // if (vehicle.isParkingOn)
-                                //   Image.asset("images/parking-light.png",
-                                //       color: Colors.white,
-                                //       width: (20 * screenHeight) / 480),
                                 if (vehicle.isLowBeam)
                                   Image.asset("images/low-beam.png",
                                       color: Colors.white,
@@ -194,12 +189,26 @@ class Home extends ConsumerWidget {
                                   Image.asset("images/hazard.png",
                                       color: Colors.white,
                                       width: (20 * screenHeight) / 480),
-                                Image.asset("images/battery.png",
-                                    color: Colors.white,
-                                    width: (20 * screenHeight) / 480),
-                                Image.asset("images/malfunction.png",
-                                    color: Colors.white,
-                                    width: (20 * screenHeight) / 480),
+                                if (vehicle.isParkingOn)
+                                  Image.asset("images/parking.png",
+                                      color: Colors.white,
+                                      width: (20 * screenHeight) / 480),
+                                if (!vehicle.isBatteryCharging)
+                                  Image.asset("images/battery.png",
+                                      color: Colors.white,
+                                      width: (20 * screenHeight) / 480),
+                                if (vehicle.isMILon)
+                                  Image.asset("images/malfunction.png",
+                                      color: Colors.white,
+                                      width: (20 * screenHeight) / 480),
+                                if (vehicle.isCruiseControlActive)
+                                  Image.asset("images/cruise.png",
+                                      color: Colors.white,
+                                      width: (20 * screenHeight) / 480),
+                                if (vehicle.isCruiseControlError)
+                                  Image.asset("images/cruise.png",
+                                      color: Colors.red,
+                                      width: (20 * screenHeight) / 480),
                               ],
                             ),
                           )
@@ -208,7 +217,11 @@ class Home extends ConsumerWidget {
                     ),
                     // Guage 2
                     Flexible(
-                        flex: 10, child: RPMGauge(screenHeight: screenHeight)),
+                        flex: 10,
+                        child: RPMGauge(
+                          screenHeight: screenHeight,
+                          guageColor: getGuageColor(vehicle.performanceMode),
+                        )),
                     // RightPainter
                     Flexible(
                       flex: 3,
@@ -274,4 +287,4 @@ class Home extends ConsumerWidget {
 
 /*
 x/480=16/9
-*/ 
+*/

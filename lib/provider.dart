@@ -20,3 +20,10 @@ class Clock extends StateNotifier<DateTime> {
     super.dispose();
   }
 }
+
+class Gear {
+  static String parking = "P";
+  static String drive = "D";
+  static String neutral = "N";
+  static String reverse = "R";
+}
