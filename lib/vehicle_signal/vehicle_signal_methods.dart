@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
@@ -7,81 +8,76 @@ import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
 
 class VISS {
   static const requestId = "test-id";
-  static void init(WidgetRef ref) {
-    authorize(ref);
-
-    subscribe(ref, VSPath.vehicleSpeed);
-    subscribe(ref, VSPath.vehicleEngineRPM);
-    subscribe(ref, VSPath.vehicleLeftIndicator);
-    subscribe(ref, VSPath.vehicleRightIndicator);
-    subscribe(ref, VSPath.vehicleFuelLevel);
-    subscribe(ref, VSPath.vehicleCoolantTemp);
-    subscribe(ref, VSPath.vehicleHazardLightOn);
-    subscribe(ref, VSPath.vehicleHighBeamOn);
-    subscribe(ref, VSPath.vehicleLowBeamOn);
-    subscribe(ref, VSPath.vehicleSelectedGear);
-    subscribe(ref, VSPath.vehiclePerformanceMode);
-    subscribe(ref, VSPath.vehicleAmbientAirTemperature);
-    subscribe(ref, VSPath.vehicleParkingLightOn);
+  static void init(WebSocket socket) {
+    authorize(socket);
+    subscribe(socket, VSPath.vehicleSpeed);
+    subscribe(socket, VSPath.vehicleEngineRPM);
+    subscribe(socket, VSPath.vehicleLeftIndicator);
+    subscribe(socket, VSPath.vehicleRightIndicator);
+    subscribe(socket, VSPath.vehicleFuelLevel);
+    subscribe(socket, VSPath.vehicleCoolantTemp);
+    subscribe(socket, VSPath.vehicleHazardLightOn);
+    subscribe(socket, VSPath.vehicleHighBeamOn);
+    subscribe(socket, VSPath.vehicleLowBeamOn);
+    subscribe(socket, VSPath.vehicleSelectedGear);
+    subscribe(socket, VSPath.vehiclePerformanceMode);
+    subscribe(socket, VSPath.vehicleAmbientAirTemperature);
+    subscribe(socket, VSPath.vehicleParkingLightOn);
   }
 
-  static void update(WidgetRef ref) {
-    get(ref, VSPath.vehicleSpeed);
-    get(ref, VSPath.vehicleEngineRPM);
-    get(ref, VSPath.vehicleLeftIndicator);
-    get(ref, VSPath.vehicleRightIndicator);
-    get(ref, VSPath.vehicleFuelLevel);
-    get(ref, VSPath.vehicleCoolantTemp);
-    get(ref, VSPath.vehicleHazardLightOn);
-    get(ref, VSPath.vehicleHighBeamOn);
-    get(ref, VSPath.vehicleLowBeamOn);
-    get(ref, VSPath.vehicleSelectedGear);
-    get(ref, VSPath.vehiclePerformanceMode);
-    get(ref, VSPath.vehicleAmbientAirTemperature);
-    get(ref, VSPath.vehicleParkingLightOn);
+  static void update(WebSocket socket) {
+    get(socket, VSPath.vehicleSpeed);
+    get(socket, VSPath.vehicleEngineRPM);
+    get(socket, VSPath.vehicleLeftIndicator);
+    get(socket, VSPath.vehicleRightIndicator);
+    get(socket, VSPath.vehicleFuelLevel);
+    get(socket, VSPath.vehicleCoolantTemp);
+    get(socket, VSPath.vehicleHazardLightOn);
+    get(socket, VSPath.vehicleHighBeamOn);
+    get(socket, VSPath.vehicleLowBeamOn);
+    get(socket, VSPath.vehicleSelectedGear);
+    get(socket, VSPath.vehiclePerformanceMode);
+    get(socket, VSPath.vehicleAmbientAirTemperature);
+    get(socket, VSPath.vehicleParkingLightOn);
   }
 
-  static void authorize(WidgetRef ref) {
-    final channel = ref.read(channel_provider);
+  static void authorize(WebSocket socket) {
     Map<String, dynamic> map = {
       "action": "authorize",
       "tokens": VehicleSignalConfig.authToken,
       "requestId": requestId
     };
-    channel.sink.add(jsonEncode(map));
+    socket.add(jsonEncode(map));
   }
 
-  static void get(WidgetRef ref, String path) {
-    final channel = ref.read(channel_provider);
+  static void get(WebSocket socket, String path) {
     Map<String, dynamic> map = {
       "action": "get",
       "tokens": VehicleSignalConfig.authToken,
       "path": path,
       "requestId": requestId
     };
-    channel.sink.add(jsonEncode(map));
+    socket.add(jsonEncode(map));
   }
 
-  static void set(WidgetRef ref, String path, String value) {
-    final channel = ref.read(channel_provider);
+  static void set(WebSocket socket, String path, String value) {
     Map<String, dynamic> map = {
       "action": "set",
       "tokens": VehicleSignalConfig.authToken,
       "path": path,
       "requestId": requestId
     };
-    channel.sink.add(jsonEncode(map));
+    socket.add(jsonEncode(map));
   }
 
-  static void subscribe(WidgetRef ref, String path) {
-    final channel = ref.read(channel_provider);
+  static void subscribe(WebSocket socket, String path) {
     Map<String, dynamic> map = {
       "action": "subscribe",
       "tokens": VehicleSignalConfig.authToken,
       "path": path,
       "requestId": requestId
     };
-    channel.sink.add(jsonEncode(map));
+    socket.add(jsonEncode(map));
   }
 
   static String? numToGear(int? number) {

@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // -------------------------------------------------------------
@@ -187,3 +188,6 @@ class Gear {
 
 // class Indicators {}
 // -------------------------------------------------------------
+
+// final dataProvider = FutureProvider(
+//     (ref) => PlatformAssetBundle().load("assets/cert/Server.pem"));

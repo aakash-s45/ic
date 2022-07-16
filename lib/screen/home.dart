@@ -32,9 +32,6 @@ class Home extends ConsumerWidget {
     // print("w:$screenWidth");
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        VISS.get(ref, "Vehicle.Body.Lights.IsLeftIndicatorOn");
-      }),
       backgroundColor: GuageProps.bgColor,
       body: SafeArea(
         child: Center(

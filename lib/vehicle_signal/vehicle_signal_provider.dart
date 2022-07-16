@@ -3,7 +3,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_path.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 // final channel_provider = Provider.family((ref, uri) => );
