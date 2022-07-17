@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -150,7 +152,7 @@ class VISS {
                   }
                   break;
                 case VSPath.vehicleParkingLightOn:
-                  vehicleSignal.update(isHighBeam: dp["value"]);
+                  vehicleSignal.update(isParkingOn: dp["value"]);
                   break;
                 case VSPath.vehicleLowBeamOn:
                   if (dp["value"]) {

@@ -13,9 +13,9 @@ class PerformanceMode extends StatelessWidget {
       height: size?.height ?? 40,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: (mode == "sport" || mode == "sports")
-              ? Colors.red
-              : (mode == "eco")
+          color: (mode == "sport")
+              ? Colors.deepPurple
+              : (mode == "economy")
                   ? Colors.green
                   : Colors.black),
       child: Center(

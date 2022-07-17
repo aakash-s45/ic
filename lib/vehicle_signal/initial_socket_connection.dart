@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
+// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, must_be_immutable, unnecessary_null_comparison
 
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
 class InitialScreen extends ConsumerWidget {
   InitialScreen({Key? key, required this.client}) : super(key: key);
   final HttpClient client;
-  late final WebSocket socket;
+  late WebSocket socket;
 
   @override
   Widget build(BuildContext context, ref) {
@@ -18,28 +18,99 @@ class InitialScreen extends ConsumerWidget {
     return sockConnect.when(
       data: (socket) {
         this.socket = socket;
+        this.socket.pingInterval = const Duration(seconds: 2);
+
         return (this.socket != null)
-            ? OnBoardingPage(socket: this.socket)
+            ? OnBoardingPage(client: client, socket: this.socket)
             : const Text("! can't connect !");
       },
       error: (e, stk) {
         ref.refresh(sockConnectprovider(client));
-        return Container();
+        return const Scaffold(
+          backgroundColor: Colors.black,
+          body: NoticeWidget(
+            assetImageName: "images/server_error.png",
+            text1: "Server Unavailable",
+            text2: "Retrying to conncect!",
+          ),
+        );
       },
-      // Material(
-      //   child: InkWell(
-      //     onTap: () {
-      //       ref.refresh(sockConnectprovider(client));
-      //     },
-      //     child: Container(
-      //       width: 400,
-      //       height: 400,
-      //       color: Colors.white,
-      //       child: const Center(child: Text("Tap any where to retry !")),
-      //     ),
-      //   ),
-      // ),
-      loading: () => const CircularProgressIndicator(),
+      loading: () => const Scaffold(
+        backgroundColor: Colors.black,
+        body: NoticeWidget(
+          assetImageName: "images/server.png",
+          text1: "Hi!",
+          text2: "Connecting...!",
+        ),
+      ),
+    );
+  }
+}
+
+class NoticeWidget extends StatelessWidget {
+  const NoticeWidget({
+    Key? key,
+    required this.assetImageName,
+    required this.text1,
+    required this.text2,
+    this.loadingColor,
+  }) : super(key: key);
+
+  final String assetImageName;
+  final String text1;
+  final String text2;
+  final Color? loadingColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return LoadingContainer(
+        child: Flex(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      direction: Axis.vertical,
+      children: [
+        Flexible(
+          child: SizedBox(
+            height: 100,
+            child:
+                Image(image: AssetImage(assetImageName), fit: BoxFit.fitWidth),
+          ),
+        ),
+        Flexible(
+            child: Text(text1,
+                style: const TextStyle(fontWeight: FontWeight.bold))),
+        Flexible(
+            child: Text(text2,
+                style: const TextStyle(fontWeight: FontWeight.bold))),
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 20),
+            child: LinearProgressIndicator(color: loadingColor ?? Colors.red),
+          ),
+        )
+      ],
+    ));
+  }
+}
+
+class LoadingContainer extends StatelessWidget {
+  const LoadingContainer({Key? key, required this.child}) : super(key: key);
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width / 2,
+          height: MediaQuery.of(context).size.height * 3 / 4,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(40)),
+          child: child,
+        ),
+      ),
     );
   }
 }
