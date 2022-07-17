@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
 
-class PerformanceMode extends ConsumerWidget {
+class PerformanceMode extends StatelessWidget {
   const PerformanceMode({Key? key, this.size, required this.mode})
       : super(key: key);
   final Size? size;
   final String mode;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final VehicleSignal vehicle = ref.watch(vehicleSignalProvider);
-    print(vehicle.performanceMode);
+  Widget build(BuildContext context) {
     return Container(
       width: size?.width ?? 20,
       height: size?.height ?? 40,

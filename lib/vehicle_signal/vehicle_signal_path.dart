@@ -31,6 +31,8 @@ class VSPath {
       "Vehicle.ADAS.CruiseControl.SpeedSet";
   static const String vehicleCruiseControlSpeedisActive =
       "Vehicle.ADAS.CruiseControl.IsActive";
+  static const String vehicleBatteryChargingStatus =
+      "Vehicle.Powertrain.Battery.Charging.Status";
 }
 
 // "Vehicle.Powertrain.Battery.StateOfCharge.Current"

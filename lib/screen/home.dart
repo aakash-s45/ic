@@ -11,7 +11,6 @@ import 'package:ic/screen/widgets/right_bar.dart';
 import 'package:ic/screen/widgets/right_signal.dart';
 import 'package:ic/screen/widgets/rpm_guage_animation_wrapper.dart';
 import 'package:ic/screen/widgets/speed_guage_animation_wrapper.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_methods.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
 
 class Home extends ConsumerWidget {
@@ -20,16 +19,8 @@ class Home extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final vehicle = ref.watch(vehicleSignalProvider);
-
     final clock = ref.watch(clockProvider);
-    // final turn = ref.watch(turnSignalProvider);
-    // final gear = ref.watch(gearProvider);
-
-    // const double screenRatio = 16 / 9;
-    // final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    // print("h:$screenHeight");
-    // print("w:$screenWidth");
 
     return Scaffold(
       backgroundColor: GuageProps.bgColor,

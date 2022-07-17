@@ -35,6 +35,14 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
     isLowBeam: false,
     isParkingOn: false,
     travelledDistance: 888,
+    ambientAirTemp: '25',
+    cruiseControlSpeed: 60,
+    isCruiseControlActive: false,
+    isCruiseControlError: false,
+    isMILon: false,
+    isTrunkLocked: true,
+    isTrunkOpen: false,
+    isBatteryCharging: true,
   );
   void update({
     double? speed,
@@ -45,11 +53,19 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
     bool? isRightIndicator,
     String? selectedGear,
     String? performanceMode,
+    String? ambientAirTemp,
     bool? isLowBeam,
     bool? isHighBeam,
     bool? isHazardLightOn,
+    bool? isMILon,
     bool? isParkingOn,
+    bool? isTrunkOpen,
+    bool? isTrunkLocked,
+    bool? isCruiseControlActive,
+    bool? isCruiseControlError,
+    bool? isBatteryCharging,
     double? travelledDistance,
+    double? cruiseControlSpeed,
   }) {
     state = state.copyWith(
       speed: speed,
@@ -65,6 +81,14 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
       travelledDistance: travelledDistance,
       performanceMode: performanceMode,
       isParkingOn: isParkingOn,
+      isTrunkOpen: isTrunkOpen,
+      isTrunkLocked: isTrunkLocked,
+      isMILon: isMILon,
+      ambientAirTemp: ambientAirTemp,
+      isCruiseControlActive: isCruiseControlActive,
+      isCruiseControlError: isCruiseControlError,
+      cruiseControlSpeed: cruiseControlSpeed,
+      isBatteryCharging: isBatteryCharging,
     );
   }
 }

@@ -23,6 +23,14 @@ class VISS {
     subscribe(socket, VSPath.vehiclePerformanceMode);
     subscribe(socket, VSPath.vehicleAmbientAirTemperature);
     subscribe(socket, VSPath.vehicleParkingLightOn);
+    subscribe(socket, VSPath.vehicleTrunkLocked);
+    subscribe(socket, VSPath.vehicleTrunkOpen);
+    subscribe(socket, VSPath.vehicleAmbientAirTemperature);
+    subscribe(socket, VSPath.vehicleMIL);
+    subscribe(socket, VSPath.vehicleCruiseControlError);
+    subscribe(socket, VSPath.vehicleCruiseControlSpeedSet);
+    subscribe(socket, VSPath.vehicleCruiseControlSpeedisActive);
+    subscribe(socket, VSPath.vehicleBatteryChargingStatus);
   }
 
   static void update(WebSocket socket) {
@@ -39,6 +47,14 @@ class VISS {
     get(socket, VSPath.vehiclePerformanceMode);
     get(socket, VSPath.vehicleAmbientAirTemperature);
     get(socket, VSPath.vehicleParkingLightOn);
+    get(socket, VSPath.vehicleTrunkLocked);
+    get(socket, VSPath.vehicleTrunkOpen);
+    get(socket, VSPath.vehicleAmbientAirTemperature);
+    get(socket, VSPath.vehicleMIL);
+    get(socket, VSPath.vehicleCruiseControlError);
+    get(socket, VSPath.vehicleCruiseControlSpeedSet);
+    get(socket, VSPath.vehicleCruiseControlSpeedisActive);
+    get(socket, VSPath.vehicleBatteryChargingStatus);
   }
 
   static void authorize(WebSocket socket) {
@@ -106,7 +122,6 @@ class VISS {
           Map<String, dynamic> dp = dataMap["data"]["dp"];
           if (dp.containsKey("value")) {
             if (dp["value"] != "---") {
-              // print(dp["value"].runtimeType);
               switch (path) {
                 case VSPath.vehicleSpeed:
                   vehicleSignal.update(speed: double.parse(dp["value"]));
@@ -141,7 +156,6 @@ class VISS {
                   if (dp["value"]) {
                     vehicleSignal.update(isHighBeam: false);
                     vehicleSignal.update(isLowBeam: true);
-                    // VISS.set(ref, VSPath.vehicleHighBeamOn, "false");
                   } else {
                     vehicleSignal.update(isLowBeam: dp["value"]);
                   }
@@ -156,13 +170,52 @@ class VISS {
                 case VSPath.vehiclePerformanceMode:
                   vehicleSignal.update(performanceMode: dp['value']);
                   break;
+                case VSPath.vehicleTravelledDistance:
+                  vehicleSignal.update(travelledDistance: dp['value']);
+                  break;
+                case VSPath.vehicleTrunkLocked:
+                  vehicleSignal.update(isTrunkLocked: dp['value']);
+                  break;
+                case VSPath.vehicleTrunkOpen:
+                  vehicleSignal.update(isTrunkOpen: dp['value']);
+                  break;
+                case VSPath.vehicleAmbientAirTemperature:
+                  vehicleSignal.update(ambientAirTemp: dp['value']);
+                  break;
+                case VSPath.vehicleMIL:
+                  vehicleSignal.update(isMILon: dp['value']);
+                  break;
+                case VSPath.vehicleCruiseControlError:
+                  vehicleSignal.update(isCruiseControlError: dp['value']);
+                  break;
+                case VSPath.vehicleCruiseControlSpeedSet:
+                  vehicleSignal.update(cruiseControlSpeed: dp['value']);
+                  break;
+                case VSPath.vehicleCruiseControlSpeedisActive:
+                  vehicleSignal.update(isCruiseControlActive: dp['value']);
+                  break;
+                case VSPath.vehicleBatteryChargingStatus:
+                  vehicleSignal.update(isBatteryCharging: dp['value']);
+                  break;
                 default:
+                  print("$path Not Available yet!");
               }
+            } else {
+              print("ERROR:Value not available yet! Set Value of $path");
             }
+          } else {
+            print("ERROR:'value': Key not found!");
           }
+        } else if ((!dataMap["data"] as Map<String, dynamic>)
+            .containsKey("path")) {
+          print("ERROR:'path':key not found !");
+        } else if ((dataMap["data"] as Map<String, dynamic>)
+            .containsKey("dp")) {
+          print("ERROR:'dp':key not found !");
         }
+      } else {
+        print("ERROR:'data':key not found!");
       }
     }
-    // if (dataMap.containsKey())
   }
 }
