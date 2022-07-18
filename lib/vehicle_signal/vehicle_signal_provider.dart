@@ -1,18 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-
-// final channel_provider = Provider.family((ref, uri) => );
-final channel_provider = Provider<WebSocketChannel>(
-    (ref) => WebSocketChannel.connect(Uri.parse(VehicleSignalConfig.uri)));
-
-final viss_stream = StreamProvider(((ref) {
-  final channel = ref.watch(channel_provider);
-  return channel.stream;
-}));
 
 final vehicleSignalProvider =
     StateNotifierProvider<VehicleSignalNotifier, VehicleSignal>(

@@ -83,7 +83,8 @@ class VISS {
       "action": "set",
       "tokens": VehicleSignalConfig.authToken,
       "path": path,
-      "requestId": requestId
+      "requestId": requestId,
+      "value": value
     };
     socket.add(jsonEncode(map));
   }

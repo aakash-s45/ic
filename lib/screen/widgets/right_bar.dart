@@ -25,9 +25,10 @@ class RightArc extends HookConsumerWidget {
         return CustomPaint(
           size: Size(0, (250 * screenHeight) / 480),
           painter: RightPainter(
-              radi: (220 * screenHeight) / 480,
+              radi: (205 * screenHeight) / 480,
               currentValue: animationController.value,
-              bottomPadding: (15 * screenHeight) / 480,
+              bottomPadding: 17,
+              // bottomPadding: (15 * screenHeight) / 480,
               color: Color.lerp(Colors.red, Colors.green,
                       (animationController.value / 100)) ??
                   Colors.blue),

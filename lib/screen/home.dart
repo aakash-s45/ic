@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ic/provider.dart';
-import 'package:ic/screen/guage_props.dart';
+import 'package:ic/screen/widgets/guages/guage_props.dart';
 import 'package:ic/screen/paints/bottombar_paint.dart';
 import 'package:ic/screen/paints/topbar_paint.dart';
+import 'package:ic/screen/widgets/guages/rpm_guage_animation_wrapper.dart';
 import 'package:ic/screen/widgets/left_bar.dart';
 import 'package:ic/screen/widgets/left_signal.dart';
 import 'package:ic/screen/widgets/performance_mode.dart';
 import 'package:ic/screen/widgets/right_bar.dart';
 import 'package:ic/screen/widgets/right_signal.dart';
-import 'package:ic/screen/widgets/rpm_guage_animation_wrapper.dart';
-import 'package:ic/screen/widgets/speed_guage_animation_wrapper.dart';
+import 'package:ic/screen/widgets/guages/speed_guage_animation_wrapper.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
 
 class Home extends ConsumerWidget {
@@ -255,25 +255,33 @@ class Home extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             (vehicle.selectedGear == Gear.parking)
-                                ? const Text("P",
-                                    style: GuageProps.activeGearIconStyle)
-                                : const Text("P",
-                                    style: GuageProps.gearIconStyle),
+                                ? Text("P",
+                                    style: GuageProps.activeGearIconStyle(
+                                        screenHeight))
+                                : Text("P",
+                                    style:
+                                        GuageProps.gearIconStyle(screenHeight)),
                             (vehicle.selectedGear == Gear.reverse)
-                                ? const Text("R",
-                                    style: GuageProps.activeGearIconStyle)
-                                : const Text("R",
-                                    style: GuageProps.gearIconStyle),
+                                ? Text("R",
+                                    style: GuageProps.activeGearIconStyle(
+                                        screenHeight))
+                                : Text("R",
+                                    style:
+                                        GuageProps.gearIconStyle(screenHeight)),
                             (vehicle.selectedGear == Gear.neutral)
-                                ? const Text("N",
-                                    style: GuageProps.activeGearIconStyle)
-                                : const Text("N",
-                                    style: GuageProps.gearIconStyle),
+                                ? Text("N",
+                                    style: GuageProps.activeGearIconStyle(
+                                        screenHeight))
+                                : Text("N",
+                                    style:
+                                        GuageProps.gearIconStyle(screenHeight)),
                             (vehicle.selectedGear == Gear.drive)
-                                ? const Text("D",
-                                    style: GuageProps.activeGearIconStyle)
-                                : const Text("D",
-                                    style: GuageProps.gearIconStyle),
+                                ? Text("D",
+                                    style: GuageProps.activeGearIconStyle(
+                                        screenHeight))
+                                : Text("D",
+                                    style:
+                                        GuageProps.gearIconStyle(screenHeight)),
                           ]),
                     ),
                   )),

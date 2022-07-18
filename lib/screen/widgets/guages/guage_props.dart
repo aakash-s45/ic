@@ -19,12 +19,19 @@ class GuageProps {
   static const leftHighColor = Color(0x00ff0000);
 
   static double degToRad(double deg) => deg * (pi / 180.0);
-  static const TextStyle gearIconStyle = TextStyle(
-      color: Color.fromARGB(255, 84, 83, 83),
-      fontSize: 20,
-      fontWeight: FontWeight.bold);
-  static const TextStyle activeGearIconStyle =
-      TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
+  static TextStyle gearIconStyle(screenHeight) {
+    return TextStyle(
+        color: const Color.fromARGB(255, 84, 83, 83),
+        fontSize: (20 * screenHeight) / 480,
+        fontWeight: FontWeight.bold);
+  }
+
+  static TextStyle activeGearIconStyle(screenHeight) {
+    return TextStyle(
+        color: Colors.white,
+        fontSize: (20 * screenHeight) / 480,
+        fontWeight: FontWeight.bold);
+  }
 }
 
 class GuageColors {

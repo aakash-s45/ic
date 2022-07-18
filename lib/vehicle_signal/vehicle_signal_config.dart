@@ -3,10 +3,11 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// test
 
 class VehicleSignalConfig {
   static String authTokenPath = "assets/cert/jwt/all_read_write.json.token";
-  static String hostname = "localhost";
+  static String hostname = "127.0.0.1";
   static int port = 8090;
   static String uri = "ws://${hostname}:${port}";
   static String s_uri = "wss://${hostname}:${port}";
@@ -23,6 +24,7 @@ Future connectWebSoket() async {
   return [client, socket];
 }
 
+// load certificates and set context and returns http client
 Future<HttpClient> initializeClient() async {
   ByteData dataCA = await rootBundle.load('assets/cert/CA.pem');
   ByteData dataCert = await rootBundle.load('assets/cert/Client.pem');
@@ -33,14 +35,17 @@ Future<HttpClient> initializeClient() async {
   ctx.useCertificateChainBytes(dataCert.buffer.asUint8List());
   ctx.usePrivateKeyBytes(dataKey.buffer.asUint8List());
   ctx.setTrustedCertificatesBytes(dataCA.buffer.asUint8List());
-  ctx.setClientAuthoritiesBytes(dataCA.buffer.asUint8List());
+  // ctx.setClientAuthoritiesBytes(dataCA.buffer.asUint8List());
   HttpClient client = HttpClient(context: ctx)
+    ..findProxy = null
     ..badCertificateCallback = (cert, host, port) {
       return true;
     };
   return client;
 }
 
+// user VehicleSignalConfig.s_uri for secure websocket inplace of uri
+// returns WebSocket after connection
 Future<WebSocket> connect(HttpClient client) async {
   WebSocket socket =
       await WebSocket.connect(VehicleSignalConfig.s_uri, customClient: client);

@@ -32,13 +32,13 @@ class LeftPainter extends CustomPainter {
       ..color = const Color.fromARGB(255, 49, 48, 48)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 10;
+      ..strokeWidth = radi / 15;
     final paint2 = Paint()
       ..color = color
       // ..color = Colors.orange.shade600
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10;
+      ..strokeWidth = radi / 15;
 
     final path = Path()
       ..moveTo(startPoint.dx, startPoint.dy)
@@ -85,13 +85,14 @@ class RightPainter extends CustomPainter {
       ..color = const Color.fromARGB(255, 49, 48, 48)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 10;
+      ..strokeWidth = radi / 15;
+
     final paint2 = Paint()
       ..color = color
       // ..color = Colors.green
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 10;
+      ..strokeWidth = radi / 15;
     final path = Path()
       // ..moveTo(0, size.height)
       ..moveTo(startPoint.dx, startPoint.dy)

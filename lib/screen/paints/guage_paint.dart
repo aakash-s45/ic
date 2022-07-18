@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:ui' as ui;
-import 'package:ic/screen/guage_props.dart';
+import 'package:ic/screen/widgets/guages/guage_props.dart';
 
 class GuagePainter extends CustomPainter {
   final double low, high;

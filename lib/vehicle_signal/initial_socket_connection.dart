@@ -19,13 +19,14 @@ class InitialScreen extends ConsumerWidget {
       data: (socket) {
         this.socket = socket;
         this.socket.pingInterval = const Duration(seconds: 2);
-
-        return (this.socket != null)
-            ? OnBoardingPage(client: client, socket: this.socket)
-            : const Text("! can't connect !");
+        return OnBoardingPage(client: client, socket: this.socket);
       },
       error: (e, stk) {
+        print(e);
         ref.refresh(sockConnectprovider(client));
+        // Future.delayed(const Duration(seconds: 5), () {
+        //   ref.refresh(sockConnectprovider(client));
+        // });
         return const Scaffold(
           backgroundColor: Colors.black,
           body: NoticeWidget(
