@@ -23,7 +23,7 @@ Future connectWebSoket() async {
   return [client, socket];
 }
 
-// load certificates and set context
+// load certificates and set context and returns http client
 Future<HttpClient> initializeClient() async {
   // ByteData dataCA = await rootBundle.load('assets/cert/CA.pem');
   // ByteData dataCert = await rootBundle.load('assets/cert/Client.pem');
@@ -43,6 +43,7 @@ Future<HttpClient> initializeClient() async {
 }
 
 // user VehicleSignalConfig.s_uri for secure websocket inplace of uri
+// returns WebSocket after connection
 Future<WebSocket> connect(HttpClient client) async {
   WebSocket socket =
       await WebSocket.connect(VehicleSignalConfig.uri, customClient: client);

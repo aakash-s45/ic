@@ -53,7 +53,6 @@ class _OnBoardingPageState extends ConsumerState<OnBoardingPage> {
     super.dispose();
     _timer.cancel();
     widget.socket.close(786887, "Connection lost with server!");
-    // widget.socket.close(12368236471, "Restarting App!");
   }
 
   @override

@@ -19,10 +19,7 @@ class InitialScreen extends ConsumerWidget {
       data: (socket) {
         this.socket = socket;
         this.socket.pingInterval = const Duration(seconds: 2);
-
-        return (this.socket != null)
-            ? OnBoardingPage(client: client, socket: this.socket)
-            : const Text("! can't connect !");
+        return OnBoardingPage(client: client, socket: this.socket);
       },
       error: (e, stk) {
         ref.refresh(sockConnectprovider(client));
