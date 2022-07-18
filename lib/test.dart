@@ -4,10 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ic/provider.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_methods.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 class MyTest extends ConsumerWidget {
   const MyTest({
@@ -56,16 +53,16 @@ class MyTest extends ConsumerWidget {
               client = HttpClient(context: ctx);
 
               client.badCertificateCallback = (cert, host, port) {
-                List a = (cert.pem.codeUnits);
-                List b = dataServ.buffer.asUint8List();
-                print(a.length);
-                print(b.length);
-                print(a == b);
+                // List a = (cert.pem.codeUnits);
+                // List b = dataServ.buffer.asUint8List();
+                // print(a.length);
+                // print(b.length);
+                // print(a == b);
 
                 // String b = (utf8.decode(dataServ.buffer.asUint8List()));
-                for (int i = 0; i < a.length; i++) {
-                  if (a[i] != b[i]) print("${a[i]} -> ${b[i]}");
-                }
+                // for (int i = 0; i < a.length; i++) {
+                //   // if (a[i] != b[i]) print("${a[i]} -> ${b[i]}");
+                // }
                 // print(a == b);
                 // print(cert.der);
                 // return a == b;
@@ -75,11 +72,11 @@ class MyTest extends ConsumerWidget {
               var sock = await WebSocket.connect("wss://localhost:8090",
                   customClient: client);
               sock.listen((event) {
-                print(event);
+                // print(event);
               });
               sock.add(strmap);
             },
-            child: Text('press')),
+            child: const Text('press')),
         Text("hello".toString()),
       ],
     );

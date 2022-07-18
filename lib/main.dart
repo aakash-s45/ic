@@ -1,26 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ic/initial_socket_connection.dart';
+import 'package:ic/vehicle_signal/initial_socket_connection.dart';
+import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HttpClient client = await initializeClient();
   runApp(
-    const ProviderScope(
+    ProviderScope(
       child: MaterialApp(
-        // home: MyTest(),
-        home: InitialScreen(),
+        home: InitialScreen(client: client),
       ),
     ),
   );
 }
-
-
-
-
-
-/*
-
-
-
-
-
-*/

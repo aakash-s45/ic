@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ic/screen/guage_props.dart';
 import 'package:ic/screen/guage_widget.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
 
 class SpeedGauge extends HookConsumerWidget {
   final double screenHeight;
-  const SpeedGauge({Key? key, required this.screenHeight}) : super(key: key);
+  final GuageColors? guageColor;
+  const SpeedGauge({Key? key, required this.screenHeight, this.guageColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,8 +40,24 @@ class SpeedGauge extends HookConsumerWidget {
               label: "Km/h",
               zeroTickLabel: minSpeed.toInt().toString(),
               maxTickLabel: maxSpeed.toInt().toString(),
+              inPrimaryColor: guageColor?.inPrimary,
+              outPrimaryColor: guageColor?.outPrimary,
+              secondaryColor: guageColor?.secondary,
             ),
           );
         });
   }
 }
+
+final guageColorProvider = Provider.family<GuageColors, String>((ref, mode) {
+  switch (mode) {
+    case "normal":
+      return GuageColors(inPrimary: Colors.red);
+    case "sports":
+      return GuageColors(inPrimary: Colors.blue);
+    case "eco":
+      return GuageColors(inPrimary: Colors.green);
+    default:
+      return GuageColors();
+  }
+});
