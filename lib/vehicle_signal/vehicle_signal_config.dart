@@ -23,26 +23,28 @@ Future connectWebSoket() async {
   return [client, socket];
 }
 
+// load certificates and set context
 Future<HttpClient> initializeClient() async {
-  ByteData dataCA = await rootBundle.load('assets/cert/CA.pem');
-  ByteData dataCert = await rootBundle.load('assets/cert/Client.pem');
-  ByteData dataKey = await rootBundle.load('assets/cert/Client.key');
+  // ByteData dataCA = await rootBundle.load('assets/cert/CA.pem');
+  // ByteData dataCert = await rootBundle.load('assets/cert/Client.pem');
+  // ByteData dataKey = await rootBundle.load('assets/cert/Client.key');
   // ByteData dataServ = await rootBundle.load('assets/cert/Server.pem');
 
   SecurityContext ctx = SecurityContext.defaultContext;
-  ctx.useCertificateChainBytes(dataCert.buffer.asUint8List());
-  ctx.usePrivateKeyBytes(dataKey.buffer.asUint8List());
-  ctx.setTrustedCertificatesBytes(dataCA.buffer.asUint8List());
-  ctx.setClientAuthoritiesBytes(dataCA.buffer.asUint8List());
+  // ctx.useCertificateChainBytes(dataCert.buffer.asUint8List());
+  // ctx.usePrivateKeyBytes(dataKey.buffer.asUint8List());
+  // ctx.setTrustedCertificatesBytes(dataCA.buffer.asUint8List());
+  // ctx.setClientAuthoritiesBytes(dataCA.buffer.asUint8List());
   HttpClient client = HttpClient(context: ctx)
     ..badCertificateCallback = (cert, host, port) {
-      return true;
+      return false;
     };
   return client;
 }
 
+// user VehicleSignalConfig.s_uri for secure websocket inplace of uri
 Future<WebSocket> connect(HttpClient client) async {
   WebSocket socket =
-      await WebSocket.connect(VehicleSignalConfig.s_uri, customClient: client);
+      await WebSocket.connect(VehicleSignalConfig.uri, customClient: client);
   return socket;
 }
