@@ -12,7 +12,6 @@ class RightArc extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final VehicleSignal vehicle = ref.watch(vehicleSignalProvider);
-    // final fuel = ref.watch(fuelProvider);
     final animationController = useAnimationController(
       lowerBound: 0,
       upperBound: 100,
@@ -23,12 +22,11 @@ class RightArc extends HookConsumerWidget {
       animation: animationController,
       builder: (context, child) {
         return CustomPaint(
-          size: Size(0, (250 * screenHeight) / 480),
+          size: Size(0, (220 * screenHeight) / 480),
           painter: RightPainter(
-              radi: (205 * screenHeight) / 480,
+              radi: (170 * screenHeight) / 480,
               currentValue: animationController.value,
               bottomPadding: 17,
-              // bottomPadding: (15 * screenHeight) / 480,
               color: Color.lerp(Colors.red, Colors.green,
                       (animationController.value / 100)) ??
                   Colors.blue),

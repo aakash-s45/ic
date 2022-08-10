@@ -33,6 +33,32 @@ class VSPath {
       "Vehicle.ADAS.CruiseControl.IsActive";
   static const String vehicleBatteryChargingStatus =
       "Vehicle.Powertrain.Battery.Charging.Status";
+
+  static const String steeringCruiseEnable =
+      "Vehicle.Cabin.SteeringWheel.Switches.CruiseEnable";
+  static const String steeringCruiseSet =
+      "Vehicle.Cabin.SteeringWheel.Switches.CruiseSet";
+  static const String steeringCruiseResume =
+      "Vehicle.Cabin.SteeringWheel.Switches.CruiseResume";
+  static const String steeringCruiseCancel =
+      "Vehicle.Cabin.SteeringWheel.Switches.CruiseCancel";
+  static const String steeringLaneDepWarn =
+      "Vehicle.Cabin.SteeringWheel.Switches.LaneDepartureWarning";
+  static const String steeringInfo =
+      "Vehicle.Cabin.SteeringWheel.Switches.Info";
+  static const String vehicleDistanceUnit =
+      "Vehicle.Cabin.Infotainment.HMI.DistanceUnit";
+
+  static const String vehicleCurrLat =
+      "Vehicle.Cabin.Infotainment.Navigation.CurrentLocation.Latitude";
+  static const String vehicleCurrLng =
+      "Vehicle.Cabin.Infotainment.Navigation.CurrentLocation.Longitude";
+  static const String vehicleDesLat =
+      "Vehicle.Cabin.Infotainment.Navigation.DestinationSet.Latitude";
+  static const String vehicleDesLng =
+      "Vehicle.Cabin.Infotainment.Navigation.DestinationSet.Longitude";
+
+// Add new path here and go to model to add there also
 }
 
 // "Vehicle.Powertrain.Battery.StateOfCharge.Current"

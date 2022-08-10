@@ -32,7 +32,7 @@ class RPMGauge extends HookConsumerWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: CustomGuage(
-              size: (265 * screenHeight) / 480,
+              size: (248 * screenHeight) / 480,
               low: minRPM,
               high: maxRPM,
               mainValue: animationController.value,

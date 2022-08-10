@@ -1,3 +1,9 @@
+// first add variable
+// then add to constructor
+// then add to copywith function (argument and body)
+
+// then go to provider file
+
 class VehicleSignal {
   VehicleSignal({
     required this.speed,
@@ -21,6 +27,21 @@ class VehicleSignal {
     required this.isTrunkLocked,
     required this.isTrunkOpen,
     required this.isBatteryCharging,
+    //steering switches
+    required this.vehicleDistanceUnit,
+    required this.isSteeringCruiseEnable,
+    required this.isSteeringCruiseSet,
+    required this.isSteeringCruiseResume,
+    required this.isSteeringCruiseCancel,
+    required this.isSteeringLaneWarning,
+    required this.isSteeringInfo,
+    // map coordinates
+    required this.currLat,
+    required this.currLng,
+    required this.srcLat,
+    required this.srcLng,
+    required this.desLat,
+    required this.desLng,
   });
   final double speed;
   final double rpm;
@@ -44,6 +65,21 @@ class VehicleSignal {
   final bool isBatteryCharging;
   final double travelledDistance;
 
+  final String vehicleDistanceUnit;
+  final bool isSteeringCruiseEnable;
+  final bool isSteeringCruiseSet;
+  final bool isSteeringCruiseResume;
+  final bool isSteeringCruiseCancel;
+  final bool isSteeringLaneWarning;
+  final bool isSteeringInfo;
+
+  final double currLat;
+  final double currLng;
+  final double srcLat;
+  final double srcLng;
+  final double desLat;
+  final double desLng;
+
   VehicleSignal copyWith({
     double? speed,
     double? rpm,
@@ -66,6 +102,21 @@ class VehicleSignal {
     bool? isBatteryCharging,
     double? travelledDistance,
     double? cruiseControlSpeed,
+    // Steering
+    String? vehicleDistanceUnit,
+    bool? isSteeringCruiseEnable,
+    bool? isSteeringCruiseSet,
+    bool? isSteeringCruiseResume,
+    bool? isSteeringCruiseCancel,
+    bool? isSteeringLaneWarning,
+    bool? isSteeringInfo,
+    // map coordinates
+    double? currLat,
+    double? currLng,
+    double? srcLat,
+    double? srcLng,
+    double? desLat,
+    double? desLng,
   }) {
     return VehicleSignal(
       speed: speed ?? (this.speed),
@@ -90,6 +141,24 @@ class VehicleSignal {
       cruiseControlSpeed: cruiseControlSpeed ?? this.cruiseControlSpeed,
       isCruiseControlError: isCruiseControlError ?? this.isCruiseControlError,
       isBatteryCharging: isBatteryCharging ?? this.isBatteryCharging,
+      isSteeringCruiseEnable:
+          isSteeringCruiseEnable ?? this.isSteeringCruiseEnable,
+      isSteeringCruiseSet: isSteeringCruiseSet ?? this.isSteeringCruiseSet,
+      isSteeringCruiseResume:
+          isSteeringCruiseResume ?? this.isSteeringCruiseResume,
+      isSteeringCruiseCancel:
+          isSteeringCruiseCancel ?? this.isSteeringCruiseCancel,
+      isSteeringInfo: isSteeringInfo ?? this.isSteeringInfo,
+      isSteeringLaneWarning:
+          isSteeringLaneWarning ?? this.isSteeringLaneWarning,
+      vehicleDistanceUnit: vehicleDistanceUnit ?? this.vehicleDistanceUnit,
+      //
+      currLat: currLat ?? this.currLat,
+      currLng: currLng ?? this.currLng,
+      srcLat: srcLat ?? this.srcLat,
+      srcLng: srcLng ?? this.srcLng,
+      desLat: desLat ?? this.desLat,
+      desLng: desLng ?? this.desLng,
     );
   }
 }

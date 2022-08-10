@@ -15,16 +15,17 @@ class SpeedGauge extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final VehicleSignal vehicle = ref.watch(vehicleSignalProvider);
-    // final double cSpeed = ref.watch(speedProvider);
 
     const double minSpeed = 0;
     const double maxSpeed = 240;
     const Duration sweepDuration = Duration(milliseconds: 200);
+    double speedScaling =
+        (vehicle.vehicleDistanceUnit == "mi") ? 0.621504 : 1.0;
 
     final animationController = useAnimationController(
       lowerBound: minSpeed,
       upperBound: maxSpeed,
-    )..animateTo(vehicle.speed,
+    )..animateTo(speedScaling * (vehicle.speed),
         duration: sweepDuration, curve: Curves.linearToEaseOut);
 
     return AnimatedBuilder(
@@ -33,11 +34,11 @@ class SpeedGauge extends HookConsumerWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: CustomGuage(
-              size: (265 * screenHeight) / 480,
+              size: (248 * screenHeight) / 480,
               low: minSpeed,
               high: maxSpeed,
               mainValue: animationController.value,
-              label: "Km/h",
+              label: (vehicle.vehicleDistanceUnit == "mi") ? "mph" : "Km/h",
               zeroTickLabel: minSpeed.toInt().toString(),
               maxTickLabel: maxSpeed.toInt().toString(),
               inPrimaryColor: guageColor?.inPrimary,

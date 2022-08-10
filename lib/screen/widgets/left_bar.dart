@@ -24,9 +24,11 @@ class LeftArc extends HookConsumerWidget {
         animation: animationController,
         builder: (context, child) {
           return CustomPaint(
-            size: Size(0, (250 * screenHeight) / 480),
+            size: Size(0, (220 * screenHeight) / 480),
+            // size: Size(0, (250 * screenHeight) / 480),
             painter: LeftPainter(
-              radi: (195 * screenHeight) / 480,
+              radi: (170 * screenHeight) / 480,
+              // radi: (195 * screenHeight) / 480,
               currentValue: animationController.value,
               bottomPadding: 15,
               // bottomPadding: (12   * screenHeight) / 480,

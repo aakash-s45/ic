@@ -1,6 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
+// add in vehicle object then in update function and then in copywith
+// then go to methods to add there
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
 
 final vehicleSignalProvider =
@@ -32,6 +35,19 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
     isTrunkLocked: true,
     isTrunkOpen: false,
     isBatteryCharging: true,
+    isSteeringCruiseEnable: false,
+    isSteeringCruiseSet: false,
+    isSteeringCruiseResume: false,
+    isSteeringCruiseCancel: false,
+    isSteeringInfo: false,
+    isSteeringLaneWarning: false,
+    vehicleDistanceUnit: 'km',
+    currLat: HomeCoordinates.lat,
+    currLng: HomeCoordinates.lng,
+    srcLat: HomeCoordinates.lat,
+    srcLng: HomeCoordinates.lng,
+    desLat: HomeCoordinates.lat,
+    desLng: HomeCoordinates.lng,
   );
   void update({
     double? speed,
@@ -55,6 +71,21 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
     bool? isBatteryCharging,
     double? travelledDistance,
     double? cruiseControlSpeed,
+    //
+    String? vehicleDistanceUnit,
+    bool? isSteeringCruiseEnable,
+    bool? isSteeringCruiseSet,
+    bool? isSteeringCruiseResume,
+    bool? isSteeringCruiseCancel,
+    bool? isSteeringLaneWarning,
+    bool? isSteeringInfo,
+    //
+    double? currLat,
+    double? currLng,
+    double? srcLat,
+    double? srcLng,
+    double? desLat,
+    double? desLng,
   }) {
     state = state.copyWith(
       speed: speed,
@@ -78,6 +109,21 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
       isCruiseControlError: isCruiseControlError,
       cruiseControlSpeed: cruiseControlSpeed,
       isBatteryCharging: isBatteryCharging,
+      //
+      isSteeringCruiseEnable: isSteeringCruiseEnable,
+      isSteeringCruiseSet: isSteeringCruiseSet,
+      isSteeringCruiseResume: isSteeringCruiseResume,
+      isSteeringCruiseCancel: isSteeringCruiseCancel,
+      isSteeringInfo: isSteeringInfo,
+      isSteeringLaneWarning: isSteeringLaneWarning,
+      vehicleDistanceUnit: vehicleDistanceUnit,
+      //
+      currLat: currLat,
+      currLng: currLng,
+      srcLat: srcLat,
+      srcLng: srcLng,
+      desLat: desLat,
+      desLng: desLng,
     );
   }
 }
