@@ -8,6 +8,7 @@ class LeftPainter extends CustomPainter {
       required this.currentValue,
       required this.bottomPadding,
       required this.color});
+
   late final double radi;
   late final double currentValue;
   late final double bottomPadding;

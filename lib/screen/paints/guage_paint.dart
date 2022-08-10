@@ -37,18 +37,16 @@ class GuagePainter extends CustomPainter {
     final speedPathStrokePaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = ((7 / 200) * (radius))
-      ..shader = ui.Gradient.radial(
-          center,
-          radius1,
-          [Colors.black, const ui.Color.fromARGB(255, 244, 242, 232)],
-          [0.6, 1]);
+      ..shader =
+          ui.Gradient.radial(center, radius1, [Colors.black, Colors.white],
+              // [Colors.black, const ui.Color.fromARGB(255, 244, 242, 232)],
+              [0.6, 1]);
 
     final speedPathFillPaint = Paint()
       ..style = PaintingStyle.fill
       ..shader = ui.Gradient.radial(center, radius1, [
         const ui.Color.fromARGB(0, 0, 0, 0),
-        secondaryColor ?? const Color.fromARGB(156, 254, 253, 169)
-        // const Color.fromARGB(156, 254, 253, 169)
+        secondaryColor ?? const Color.fromARGB(156, 226, 226, 200)
       ], [
         0.8,
         1
@@ -62,7 +60,7 @@ class GuagePainter extends CustomPainter {
         radius,
         [
           Colors.black,
-          outPrimaryColor ?? const ui.Color.fromARGB(255, 233, 73, 71)
+          outPrimaryColor ?? const Color.fromARGB(255, 120, 120, 120)
         ],
         [0.8, 0.9],
         // [0.65, 0.9],
@@ -72,11 +70,25 @@ class GuagePainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..shader = ui.Gradient.radial(center, radius1, [
         Colors.black,
-        inPrimaryColor ?? const ui.Color.fromRGBO(168, 42, 47, 1)
+        inPrimaryColor ?? const Color.fromARGB(255, 67, 67, 67)
       ], [
         0.65,
         0.9
       ]);
+
+    final outerPathPaintRed = ui.Paint()
+      ..style = PaintingStyle.fill
+      ..shader = ui.Gradient.radial(
+        center,
+        radius,
+        [Colors.black, const Color.fromARGB(255, 187, 59, 57)],
+        [0.8, 0.9],
+      );
+
+    final innerPathPaintRed = Paint()
+      ..style = PaintingStyle.fill
+      ..shader = ui.Gradient.radial(center, radius1,
+          [Colors.black, const Color.fromARGB(255, 142, 35, 39)], [0.65, 0.9]);
 
     for (double i = 0; i < 13; i++) {
       double startAngle = GuageProps.degToRad(i * 20);
@@ -93,9 +105,13 @@ class GuagePainter extends CustomPainter {
           startAngle, gapAngle);
       innerPath.lineTo(center.dx, center.dy);
       innerPath.close();
-
-      canvas.drawPath(outerPath, outerPathPaint);
-      canvas.drawPath(innerPath, innerPathPaint);
+      if (i >= 11) {
+        canvas.drawPath(outerPath, outerPathPaintRed);
+        canvas.drawPath(innerPath, innerPathPaintRed);
+      } else {
+        canvas.drawPath(outerPath, outerPathPaint);
+        canvas.drawPath(innerPath, innerPathPaint);
+      }
     }
 
     var speedStrokePath = Path();

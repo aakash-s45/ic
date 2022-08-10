@@ -5,8 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // test
 
+class HomeCoordinates {
+  static double lat = 31.71;
+  static double lng = 76.95;
+}
+
 class VehicleSignalConfig {
   static String authTokenPath = "assets/cert/jwt/all_read_write.json.token";
+  // static String hostname = "hritikspc.local";
   static String hostname = "127.0.0.1";
   static int port = 8090;
   static String uri = "ws://${hostname}:${port}";

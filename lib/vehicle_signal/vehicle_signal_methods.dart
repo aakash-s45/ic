@@ -1,15 +1,18 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: invalid_use_of_protected_member, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ic/map/networkPolyline.dart';
+import 'package:ic/provider.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_path.dart';
 import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
+import 'package:latlong2/latlong.dart';
 
 class VISS {
-  static const requestId = "test-id";
+  static const requestId = "flutter-cluster-app";
   static void init(WebSocket socket) {
     authorize(socket);
     subscribe(socket, VSPath.vehicleSpeed);
@@ -33,6 +36,22 @@ class VISS {
     subscribe(socket, VSPath.vehicleCruiseControlSpeedSet);
     subscribe(socket, VSPath.vehicleCruiseControlSpeedisActive);
     subscribe(socket, VSPath.vehicleBatteryChargingStatus);
+
+    //
+    subscribe(socket, VSPath.steeringCruiseEnable);
+    subscribe(socket, VSPath.steeringCruiseSet);
+    subscribe(socket, VSPath.steeringCruiseResume);
+    subscribe(socket, VSPath.steeringCruiseCancel);
+    subscribe(socket, VSPath.steeringInfo);
+    subscribe(socket, VSPath.steeringLaneDepWarn);
+    subscribe(socket, VSPath.vehicleDistanceUnit);
+    //
+    subscribe(socket, VSPath.vehicleCurrLat);
+    subscribe(socket, VSPath.vehicleCurrLng);
+    subscribe(socket, VSPath.vehicleDesLat);
+    subscribe(socket, VSPath.vehicleDesLng);
+
+    update(socket);
   }
 
   static void update(WebSocket socket) {
@@ -57,6 +76,12 @@ class VISS {
     get(socket, VSPath.vehicleCruiseControlSpeedSet);
     get(socket, VSPath.vehicleCruiseControlSpeedisActive);
     get(socket, VSPath.vehicleBatteryChargingStatus);
+    get(socket, VSPath.vehicleDistanceUnit);
+    //
+    get(socket, VSPath.vehicleCurrLat);
+    get(socket, VSPath.vehicleCurrLng);
+    get(socket, VSPath.vehicleDesLat);
+    get(socket, VSPath.vehicleDesLng);
   }
 
   static void authorize(WebSocket socket) {
@@ -116,6 +141,7 @@ class VISS {
 
   static void parseData(WidgetRef ref, String data) {
     final vehicleSignal = ref.read(vehicleSignalProvider.notifier);
+    final polylineDBNotifier = ref.read(polyLineStateProvider.notifier);
     Map<String, dynamic> dataMap = jsonDecode(data);
     if (dataMap["action"] == "subscription" || dataMap["action"] == "get") {
       if (dataMap.containsKey("data")) {
@@ -192,13 +218,74 @@ class VISS {
                   vehicleSignal.update(isCruiseControlError: dp['value']);
                   break;
                 case VSPath.vehicleCruiseControlSpeedSet:
-                  vehicleSignal.update(cruiseControlSpeed: dp['value']);
+                  vehicleSignal.update(
+                      cruiseControlSpeed: double.parse(dp['value']));
                   break;
                 case VSPath.vehicleCruiseControlSpeedisActive:
                   vehicleSignal.update(isCruiseControlActive: dp['value']);
                   break;
                 case VSPath.vehicleBatteryChargingStatus:
                   vehicleSignal.update(isBatteryCharging: dp['value']);
+                  break;
+                //
+                case VSPath.steeringCruiseEnable:
+                  if (dp['value']) {
+                    if (vehicleSignal.state.isSteeringCruiseEnable) {
+                      vehicleSignal.update(isSteeringCruiseEnable: false);
+                      vehicleSignal.update(isSteeringCruiseSet: false);
+                    } else {
+                      vehicleSignal.update(isSteeringCruiseEnable: dp['value']);
+                    }
+                  }
+                  break;
+                case VSPath.steeringCruiseSet:
+                  if (dp['value'] &&
+                      vehicleSignal.state.isSteeringCruiseEnable) {
+                    vehicleSignal.update(isSteeringCruiseSet: dp['value']);
+                  }
+                  break;
+                case VSPath.steeringCruiseResume:
+                  if (dp['value'] &&
+                      vehicleSignal.state.isSteeringCruiseEnable) {
+                    vehicleSignal.update(isSteeringCruiseSet: dp['value']);
+                  }
+                  break;
+                case VSPath.steeringCruiseCancel:
+                  if (dp['value']) {
+                    vehicleSignal.update(isSteeringCruiseSet: false);
+                  }
+                  break;
+                case VSPath.steeringInfo:
+                  if (dp['value']) {
+                    vehicleSignal.update(
+                        isSteeringInfo: !vehicleSignal.state.isSteeringInfo);
+                  }
+                  break;
+                case VSPath.steeringLaneDepWarn:
+                  if (dp['value']) {
+                    vehicleSignal.update(
+                        isSteeringLaneWarning:
+                            !(vehicleSignal.state.isSteeringLaneWarning));
+                  }
+                  break;
+                case VSPath.vehicleDistanceUnit:
+                  vehicleSignal.update(vehicleDistanceUnit: dp['value']);
+                  break;
+                //
+                case VSPath.vehicleCurrLat:
+                  vehicleSignal.update(currLat: double.parse(dp['value']));
+                  break;
+                case VSPath.vehicleCurrLng:
+                  vehicleSignal.update(currLng: double.parse(dp['value']));
+                  break;
+                case VSPath.vehicleDesLat:
+                  vehicleSignal.update(desLat: double.parse(dp['value']));
+                  polylineDBNotifier.update(currPolyLineList: []);
+
+                  break;
+                case VSPath.vehicleDesLng:
+                  vehicleSignal.update(desLng: double.parse(dp['value']));
+                  polylineDBNotifier.update(currPolyLineList: []);
                   break;
                 default:
                   print("$path Not Available yet!");
@@ -221,4 +308,15 @@ class VISS {
       }
     }
   }
+}
+
+void updatePolyline(vehicleSignal, polyLineState) {
+  getJsonData(vehicleSignal.state.currLat, vehicleSignal.state.currLng,
+          vehicleSignal.state.desLat, vehicleSignal.state.desLng)
+      .then((polylineList) {
+    polyLineState.update(
+        currPolyLineList: polylineList
+            .map((element) => LatLng(element[1], element[0]))
+            .toList());
+  });
 }

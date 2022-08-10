@@ -17,7 +17,7 @@ class PerformanceMode extends StatelessWidget {
               ? Colors.deepPurple
               : (mode == "economy")
                   ? Colors.green
-                  : Colors.black),
+                  : Colors.transparent),
       child: Center(
         child: Text(
           mode.toUpperCase(),
@@ -25,7 +25,6 @@ class PerformanceMode extends StatelessWidget {
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),
         ),
       ),
-      // color:if(mode=="normal")
     );
   }
 }

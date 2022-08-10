@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
 
 // -------------------------------------------------------------
 final clockProvider = StateNotifierProvider<Clock, DateTime>((ref) {
@@ -21,9 +23,60 @@ class Clock extends StateNotifier<DateTime> {
   }
 }
 
+// -------------------------------------------------------------
+class PolyLinesDB {
+  final List<LatLng> currPolyLineList;
+  final List<LatLng> polyLineList;
+  PolyLinesDB({required this.currPolyLineList, required this.polyLineList});
+  PolyLinesDB copyWith({
+    List<LatLng>? currPolyLineList,
+    List<LatLng>? polyLineList,
+  }) {
+    return PolyLinesDB(
+      currPolyLineList: currPolyLineList ?? this.currPolyLineList,
+      polyLineList: polyLineList ?? this.polyLineList,
+    );
+  }
+}
+
+class PolyLineNotifier extends StateNotifier<PolyLinesDB> {
+  static final PolyLinesDB initialvalue = PolyLinesDB(
+    currPolyLineList: [],
+    polyLineList: [],
+  );
+  PolyLineNotifier() : super(initialvalue);
+  void update({
+    List<LatLng>? currPolyLineList,
+    List<LatLng>? polyLineList,
+  }) {
+    state = state.copyWith(
+      currPolyLineList: currPolyLineList,
+      polyLineList: polyLineList,
+    );
+  }
+}
+
+final polyLineStateProvider =
+    StateNotifierProvider<PolyLineNotifier, PolyLinesDB>(
+  (ref) => PolyLineNotifier(),
+);
+
+// -------------------------------------------------------------
+
 class Gear {
   static String parking = "P";
   static String drive = "D";
   static String neutral = "N";
   static String reverse = "R";
+}
+
+double calculateDistance(point1, point2) {
+  var p = 0.017453292519943295;
+  var a = 0.5 -
+      cos((point2.latitude - point1.latitude) * p) / 2 +
+      cos(point1.latitude * p) *
+          cos(point2.latitude * p) *
+          (1 - cos((point2.longitude - point1.longitude) * p)) /
+          2;
+  return 12742 * asin(sqrt(a));
 }
