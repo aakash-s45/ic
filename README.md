@@ -2,6 +2,8 @@
 Instrument Cluster for AGL flutter build
 
 #Screenshot
+<img width="1169" alt="Screenshot 2022-08-21 at 10 08 32 PM" src="https://user-images.githubusercontent.com/75980718/185801598-3d53bc6d-f957-422f-8376-88ab6df32f3c.png">
+
 <img width="973" alt="Screenshot 2022-06-26 at 12 15 43 AM" src="https://user-images.githubusercontent.com/75980718/175805298-1947a51f-34fa-44c7-8ddc-e8798d19ca86.png">
 
 #Steps to run the app
