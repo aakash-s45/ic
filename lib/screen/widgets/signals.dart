@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_model.dart';
 
 class Signals extends StatelessWidget {
   final VehicleSignal vehicle;

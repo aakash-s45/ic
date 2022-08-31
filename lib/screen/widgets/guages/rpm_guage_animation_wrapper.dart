@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ic/screen/widgets/guages/guage_props.dart';
-import 'package:ic/screen/widgets/guages/guage_widget.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/guages/guage_props.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/guages/guage_widget.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_model.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_provider.dart';
 
 class RPMGauge extends HookConsumerWidget {
   final double screenHeight;

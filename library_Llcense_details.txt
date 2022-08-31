@@ -19,3 +19,29 @@ Libraries and Dependencies
     - riverpod
     - state_notifier
 ---------------------------------
+* flutter_map :BSD-3-Clause 
+    - async : BSD-3-Clause 
+    - collection
+    - meta
+    - flutter
+    - http : BSD-3-Clause 
+    - http_parser
+    - path : BSD-3-Clause 
+    - source_span : BSD-3-Clause 
+    - term_glyph : BSD-3-Clause 
+    - string_scanner : BSD-3-Clause 
+    - typed_data : BSD-3-Clause 
+    - latlong2 : Apache-2.0
+    - intl : BSD-3-Clause 
+    - clock : Apache-2.0
+    - polylabel : BSD-3-Clause
+    - positioned_tap_detector_2 : MIT
+    - proj4dart : MIT
+    - mgrs_dart : MIT
+    - wkt_parser : MIT
+    - tuple : BSD-3-Clause
+    - quiver : Apache-2.0
+    - matcher : BSD-3-Clause
+    - stack_trace : BSD-3-Clause
+    - vector_math : Zlib, BSD-3-Clause 
+---------------------------------

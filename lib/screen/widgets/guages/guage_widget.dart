@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:ic/screen/paints/guage_paint.dart';
-import 'package:ic/screen/widgets/guages/guage_props.dart';
+import 'package:flutter_cluster_dashboard/screen/paints/guage_paint.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/guages/guage_props.dart';
 
 class CustomGuage extends StatelessWidget {
   const CustomGuage({

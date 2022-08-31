@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ic/map/networkPolyline.dart';
-import 'package:ic/provider.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
+import 'package:flutter_cluster_dashboard/map/networkPolyline.dart';
+import 'package:flutter_cluster_dashboard/provider.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_provider.dart';
 import 'package:latlong2/latlong.dart';
 
 class NavigationHome extends ConsumerStatefulWidget {
@@ -121,14 +121,7 @@ class _NavigationHomeState extends ConsumerState<NavigationHome> {
                 point: markerLocation,
                 width: 70,
                 height: 70,
-                builder: (context) =>
-                    // const Icon(
-                    //       // Icons.center_focus_strong,
-                    //       Icons.location_on,
-                    //       size: 50,
-                    //       color: Colors.deepPurple,
-                    //     )
-                    Image.asset(
+                builder: (context) => Image.asset(
                   "images/car.png",
                 ),
               ),

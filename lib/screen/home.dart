@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ic/map/navigationHome.dart';
-import 'package:ic/provider.dart';
-import 'package:ic/screen/widgets/guages/guage_props.dart';
-import 'package:ic/screen/paints/bottombar_paint.dart';
-import 'package:ic/screen/paints/topbar_paint.dart';
-import 'package:ic/screen/widgets/guages/rpm_guage_animation_wrapper.dart';
-import 'package:ic/screen/widgets/left_bar.dart';
-import 'package:ic/screen/widgets/performance_mode.dart';
-import 'package:ic/screen/widgets/right_bar.dart';
-import 'package:ic/screen/widgets/guages/speed_guage_animation_wrapper.dart';
-import 'package:ic/screen/widgets/signals.dart';
-import 'package:ic/screen/widgets/turn_signal.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
+import 'package:flutter_cluster_dashboard/map/navigationHome.dart';
+import 'package:flutter_cluster_dashboard/provider.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/guages/guage_props.dart';
+import 'package:flutter_cluster_dashboard/screen/paints/bottombar_paint.dart';
+import 'package:flutter_cluster_dashboard/screen/paints/topbar_paint.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/guages/rpm_guage_animation_wrapper.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/left_bar.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/performance_mode.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/right_bar.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/guages/speed_guage_animation_wrapper.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/signals.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/turn_signal.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_provider.dart';
 import 'package:intl/intl.dart';
 
 class Home extends ConsumerWidget {
@@ -105,7 +105,6 @@ class Home extends ConsumerWidget {
                                         DateFormat('EEEE')
                                             .format(clock)
                                             .substring(0, 3),
-                                        // "${clock.month}-${addZero(clock.day)}",
                                         style: TextStyle(
                                             color: const Color.fromARGB(
                                                 255, 184, 183, 183),
@@ -221,9 +220,6 @@ class Home extends ConsumerWidget {
                                       fit: FlexFit.tight,
                                       child: SizedBox(
                                         width: (330 * screenHeight) / 720,
-                                        // height: (330 * screenHeight) / 720,
-                                        // child: (true)
-                                        // child: (true)
                                         child: (vehicle.isSteeringInfo)
                                             ? const NavigationHome()
                                             : Padding(

@@ -1,9 +1,3 @@
-// first add variable
-// then add to constructor
-// then add to copywith function (argument and body)
-
-// then go to provider file
-
 class VehicleSignal {
   VehicleSignal({
     required this.speed,

@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class LeftPainter extends CustomPainter {
@@ -36,7 +35,6 @@ class LeftPainter extends CustomPainter {
       ..strokeWidth = radi / 15;
     final paint2 = Paint()
       ..color = color
-      // ..color = Colors.orange.shade600
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = radi / 15;
@@ -90,12 +88,10 @@ class RightPainter extends CustomPainter {
 
     final paint2 = Paint()
       ..color = color
-      // ..color = Colors.green
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = radi / 15;
     final path = Path()
-      // ..moveTo(0, size.height)
       ..moveTo(startPoint.dx, startPoint.dy)
       ..arcToPoint(
         const Offset(0, 0),
@@ -116,4 +112,3 @@ class RightPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
-// 244 242 231

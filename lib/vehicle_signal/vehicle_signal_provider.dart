@@ -1,10 +1,6 @@
-// ignore_for_file: non_constant_identifier_names
-
-// add in vehicle object then in update function and then in copywith
-// then go to methods to add there
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_config.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_model.dart';
 
 final vehicleSignalProvider =
     StateNotifierProvider<VehicleSignalNotifier, VehicleSignal>(

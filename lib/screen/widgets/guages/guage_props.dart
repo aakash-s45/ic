@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class GuageProps {
-  // static GuageColors normalModeColor = GuageColors(inPrimary: Colors.red);
   static GuageColors normalModeColor = GuageColors(
     inPrimary: const Color.fromARGB(255, 67, 67, 67),
     outPrimary: const Color.fromARGB(255, 120, 120, 120),

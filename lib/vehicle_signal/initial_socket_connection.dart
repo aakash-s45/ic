@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, avoid_print, must_be_immutable, unnecessary_null_comparison
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ic/vehicle_signal/listen_stream.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/listen_stream.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_config.dart';
 
 class InitialScreen extends ConsumerWidget {
   InitialScreen({Key? key, required this.client}) : super(key: key);
@@ -24,9 +22,6 @@ class InitialScreen extends ConsumerWidget {
       error: (e, stk) {
         print(e);
         ref.refresh(sockConnectprovider(client));
-        // Future.delayed(const Duration(seconds: 5), () {
-        //   ref.refresh(sockConnectprovider(client));
-        // });
         return const Scaffold(
           backgroundColor: Colors.black,
           body: NoticeWidget(

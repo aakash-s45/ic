@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ic/screen/paints/arc_painter.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_model.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
+import 'package:flutter_cluster_dashboard/screen/paints/arc_painter.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_model.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_provider.dart';
 
 class RightArc extends HookConsumerWidget {
   final double screenHeight;

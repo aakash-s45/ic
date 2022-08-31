@@ -1,14 +1,12 @@
-// ignore_for_file: invalid_use_of_protected_member, avoid_print
-
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ic/map/networkPolyline.dart';
-import 'package:ic/provider.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_config.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_path.dart';
-import 'package:ic/vehicle_signal/vehicle_signal_provider.dart';
+import 'package:flutter_cluster_dashboard/map/networkPolyline.dart';
+import 'package:flutter_cluster_dashboard/provider.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_config.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_path.dart';
+import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_provider.dart';
 import 'package:latlong2/latlong.dart';
 
 class VISS {

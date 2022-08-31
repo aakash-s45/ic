@@ -57,10 +57,4 @@ class VSPath {
       "Vehicle.Cabin.Infotainment.Navigation.DestinationSet.Latitude";
   static const String vehicleDesLng =
       "Vehicle.Cabin.Infotainment.Navigation.DestinationSet.Longitude";
-
-// Add new path here and go to model to add there also
 }
-
-// "Vehicle.Powertrain.Battery.StateOfCharge.Current"
-// "Vehicle.Powertrain.Battery.Charging.Status"
-// Vehicle.Powertrain.Battery.PowerConnected

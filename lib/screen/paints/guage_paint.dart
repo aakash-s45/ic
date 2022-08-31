@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:ui' as ui;
-import 'package:ic/screen/widgets/guages/guage_props.dart';
+import 'package:flutter_cluster_dashboard/screen/widgets/guages/guage_props.dart';
 
 class GuagePainter extends CustomPainter {
   final double low, high;
@@ -37,10 +37,8 @@ class GuagePainter extends CustomPainter {
     final speedPathStrokePaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = ((7 / 200) * (radius))
-      ..shader =
-          ui.Gradient.radial(center, radius1, [Colors.black, Colors.white],
-              // [Colors.black, const ui.Color.fromARGB(255, 244, 242, 232)],
-              [0.6, 1]);
+      ..shader = ui.Gradient.radial(
+          center, radius1, [Colors.black, Colors.white], [0.6, 1]);
 
     final speedPathFillPaint = Paint()
       ..style = PaintingStyle.fill
@@ -54,7 +52,6 @@ class GuagePainter extends CustomPainter {
 
     final outerPathPaint = ui.Paint()
       ..style = PaintingStyle.fill
-      // ..color = const ui.Color.fromARGB(255, 233, 73, 71);
       ..shader = ui.Gradient.radial(
         center,
         radius,
@@ -63,7 +60,6 @@ class GuagePainter extends CustomPainter {
           outPrimaryColor ?? const Color.fromARGB(255, 120, 120, 120)
         ],
         [0.8, 0.9],
-        // [0.65, 0.9],
       );
 
     final innerPathPaint = Paint()
