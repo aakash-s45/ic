@@ -52,3 +52,4 @@ app.*.map.json
 /macos/
 /log.txt
 pubspec.lock
+.vssclient_history
