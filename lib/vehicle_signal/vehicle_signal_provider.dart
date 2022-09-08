@@ -1,5 +1,6 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_config.dart';
 import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_model.dart';
 
 final vehicleSignalProvider =
@@ -38,12 +39,10 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
     isSteeringInfo: false,
     isSteeringLaneWarning: false,
     vehicleDistanceUnit: 'km',
-    currLat: HomeCoordinates.lat,
-    currLng: HomeCoordinates.lng,
-    srcLat: HomeCoordinates.lat,
-    srcLng: HomeCoordinates.lng,
-    desLat: HomeCoordinates.lat,
-    desLng: HomeCoordinates.lng,
+    currLat: 31.71,
+    currLng: 76.95,
+    desLat: 31.71,
+    desLng: 76.95,
   );
   void update({
     double? speed,
@@ -78,8 +77,6 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
     //
     double? currLat,
     double? currLng,
-    double? srcLat,
-    double? srcLng,
     double? desLat,
     double? desLng,
   }) {
@@ -116,8 +113,6 @@ class VehicleSignalNotifier extends StateNotifier<VehicleSignal> {
       //
       currLat: currLat,
       currLng: currLng,
-      srcLat: srcLat,
-      srcLng: srcLng,
       desLat: desLat,
       desLng: desLng,
     );

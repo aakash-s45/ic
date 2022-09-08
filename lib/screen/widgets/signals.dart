@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_model.dart';
 

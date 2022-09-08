@@ -1,6 +1,8 @@
-// ignore_for_file: file_names
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:math';
+import 'package:flutter_cluster_dashboard/cluster_config.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:latlong2/latlong.dart';
@@ -13,18 +15,16 @@ class NetworkHelper {
       required this.endLat});
 
   final String url = 'https://api.openrouteservice.org/v2/directions/';
-  final String apiKey =
-      '5b3ce3597851110001cf624881b2435915874987965ce59e3b8de08a';
-  final String pathParam = 'driving-car'; // Change it if you want
 
   final double startLng;
   final double startLat;
   final double endLng;
   final double endLat;
 
-  Future getData() async {
+  Future getData(WidgetRef ref) async {
+    final config = ref.read(clusterConfigStateprovider);
     String uriStr =
-        '$url$pathParam?api_key=$apiKey&start=$startLng,$startLat&end=$endLng,$endLat';
+        '$url${config.orsPathParam}?api_key=${config.orsApiKey}&start=$startLng,$startLat&end=$endLng,$endLat';
     http.Response response = await http.get(Uri.parse(uriStr));
 
     if (response.statusCode == 200) {
@@ -37,7 +37,12 @@ class NetworkHelper {
 }
 
 Future getJsonData(
-    double startLat, double startLng, double endLat, double endLng) async {
+  WidgetRef ref,
+  double startLat,
+  double startLng,
+  double endLat,
+  double endLng,
+) async {
   if (startLat == endLat && startLng == endLng) {
     return [];
   } else {
@@ -48,7 +53,7 @@ Future getJsonData(
       endLng: endLng,
     );
     try {
-      var data = await network.getData();
+      var data = await network.getData(ref);
       return data['features'][0]['geometry']['coordinates'];
     } catch (error) {
       print(error);

@@ -1,6 +1,6 @@
 name: flutter_cluster_dashboard
 
-description: This is a demo app for Instrument Cluster for AGL.
+description: Instrument Cluster demo app using Flutter for AGL
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -18,6 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
+# Dart SDK version
 environment:
   sdk: ">=2.17.0 <3.0.0"
 
@@ -39,6 +40,7 @@ dependencies:
   latlong2: ^0.8.1
   intl: ^0.17.0
   http: ^0.13.5
+  yaml: ^3.1.1
 
 dev_dependencies:
   flutter_test:

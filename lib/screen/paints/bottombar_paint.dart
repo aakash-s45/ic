@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';

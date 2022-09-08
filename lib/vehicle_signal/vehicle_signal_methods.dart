@@ -1,110 +1,114 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:flutter_cluster_dashboard/cluster_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_cluster_dashboard/map/networkPolyline.dart';
 import 'package:flutter_cluster_dashboard/provider.dart';
-import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_config.dart';
 import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_path.dart';
 import 'package:flutter_cluster_dashboard/vehicle_signal/vehicle_signal_provider.dart';
 import 'package:latlong2/latlong.dart';
 
 class VISS {
   static const requestId = "flutter-cluster-app";
-  static void init(WebSocket socket) {
-    authorize(socket);
-    subscribe(socket, VSPath.vehicleSpeed);
-    subscribe(socket, VSPath.vehicleEngineRPM);
-    subscribe(socket, VSPath.vehicleLeftIndicator);
-    subscribe(socket, VSPath.vehicleRightIndicator);
-    subscribe(socket, VSPath.vehicleFuelLevel);
-    subscribe(socket, VSPath.vehicleCoolantTemp);
-    subscribe(socket, VSPath.vehicleHazardLightOn);
-    subscribe(socket, VSPath.vehicleHighBeamOn);
-    subscribe(socket, VSPath.vehicleLowBeamOn);
-    subscribe(socket, VSPath.vehicleSelectedGear);
-    subscribe(socket, VSPath.vehiclePerformanceMode);
-    subscribe(socket, VSPath.vehicleAmbientAirTemperature);
-    subscribe(socket, VSPath.vehicleParkingLightOn);
-    subscribe(socket, VSPath.vehicleTrunkLocked);
-    subscribe(socket, VSPath.vehicleTrunkOpen);
-    subscribe(socket, VSPath.vehicleAmbientAirTemperature);
-    subscribe(socket, VSPath.vehicleMIL);
-    subscribe(socket, VSPath.vehicleCruiseControlError);
-    subscribe(socket, VSPath.vehicleCruiseControlSpeedSet);
-    subscribe(socket, VSPath.vehicleCruiseControlSpeedisActive);
-    subscribe(socket, VSPath.vehicleBatteryChargingStatus);
+  static void init(WebSocket socket, WidgetRef ref) {
+    authorize(socket, ref);
+    subscribe(socket, ref, VSPath.vehicleSpeed);
+    subscribe(socket, ref, VSPath.vehicleEngineRPM);
+    subscribe(socket, ref, VSPath.vehicleLeftIndicator);
+    subscribe(socket, ref, VSPath.vehicleRightIndicator);
+    subscribe(socket, ref, VSPath.vehicleFuelLevel);
+    subscribe(socket, ref, VSPath.vehicleCoolantTemp);
+    subscribe(socket, ref, VSPath.vehicleHazardLightOn);
+    subscribe(socket, ref, VSPath.vehicleHighBeamOn);
+    subscribe(socket, ref, VSPath.vehicleLowBeamOn);
+    subscribe(socket, ref, VSPath.vehicleSelectedGear);
+    subscribe(socket, ref, VSPath.vehiclePerformanceMode);
+    subscribe(socket, ref, VSPath.vehicleAmbientAirTemperature);
+    subscribe(socket, ref, VSPath.vehicleParkingLightOn);
+    subscribe(socket, ref, VSPath.vehicleTrunkLocked);
+    subscribe(socket, ref, VSPath.vehicleTrunkOpen);
+    subscribe(socket, ref, VSPath.vehicleAmbientAirTemperature);
+    subscribe(socket, ref, VSPath.vehicleMIL);
+    subscribe(socket, ref, VSPath.vehicleCruiseControlError);
+    subscribe(socket, ref, VSPath.vehicleCruiseControlSpeedSet);
+    subscribe(socket, ref, VSPath.vehicleCruiseControlSpeedisActive);
+    subscribe(socket, ref, VSPath.vehicleBatteryChargingStatus);
 
     //
-    subscribe(socket, VSPath.steeringCruiseEnable);
-    subscribe(socket, VSPath.steeringCruiseSet);
-    subscribe(socket, VSPath.steeringCruiseResume);
-    subscribe(socket, VSPath.steeringCruiseCancel);
-    subscribe(socket, VSPath.steeringInfo);
-    subscribe(socket, VSPath.steeringLaneDepWarn);
-    subscribe(socket, VSPath.vehicleDistanceUnit);
+    subscribe(socket, ref, VSPath.steeringCruiseEnable);
+    subscribe(socket, ref, VSPath.steeringCruiseSet);
+    subscribe(socket, ref, VSPath.steeringCruiseResume);
+    subscribe(socket, ref, VSPath.steeringCruiseCancel);
+    subscribe(socket, ref, VSPath.steeringInfo);
+    subscribe(socket, ref, VSPath.steeringLaneDepWarn);
+    subscribe(socket, ref, VSPath.vehicleDistanceUnit);
     //
-    subscribe(socket, VSPath.vehicleCurrLat);
-    subscribe(socket, VSPath.vehicleCurrLng);
-    subscribe(socket, VSPath.vehicleDesLat);
-    subscribe(socket, VSPath.vehicleDesLng);
+    subscribe(socket, ref, VSPath.vehicleCurrLat);
+    subscribe(socket, ref, VSPath.vehicleCurrLng);
+    subscribe(socket, ref, VSPath.vehicleDesLat);
+    subscribe(socket, ref, VSPath.vehicleDesLng);
 
-    update(socket);
+    update(socket, ref);
   }
 
-  static void update(WebSocket socket) {
-    get(socket, VSPath.vehicleSpeed);
-    get(socket, VSPath.vehicleEngineRPM);
-    get(socket, VSPath.vehicleLeftIndicator);
-    get(socket, VSPath.vehicleRightIndicator);
-    get(socket, VSPath.vehicleFuelLevel);
-    get(socket, VSPath.vehicleCoolantTemp);
-    get(socket, VSPath.vehicleHazardLightOn);
-    get(socket, VSPath.vehicleHighBeamOn);
-    get(socket, VSPath.vehicleLowBeamOn);
-    get(socket, VSPath.vehicleSelectedGear);
-    get(socket, VSPath.vehiclePerformanceMode);
-    get(socket, VSPath.vehicleAmbientAirTemperature);
-    get(socket, VSPath.vehicleParkingLightOn);
-    get(socket, VSPath.vehicleTrunkLocked);
-    get(socket, VSPath.vehicleTrunkOpen);
-    get(socket, VSPath.vehicleAmbientAirTemperature);
-    get(socket, VSPath.vehicleMIL);
-    get(socket, VSPath.vehicleCruiseControlError);
-    get(socket, VSPath.vehicleCruiseControlSpeedSet);
-    get(socket, VSPath.vehicleCruiseControlSpeedisActive);
-    get(socket, VSPath.vehicleBatteryChargingStatus);
-    get(socket, VSPath.vehicleDistanceUnit);
+  static void update(WebSocket socket, WidgetRef ref) {
+    get(socket, ref, VSPath.vehicleSpeed);
+    get(socket, ref, VSPath.vehicleEngineRPM);
+    get(socket, ref, VSPath.vehicleLeftIndicator);
+    get(socket, ref, VSPath.vehicleRightIndicator);
+    get(socket, ref, VSPath.vehicleFuelLevel);
+    get(socket, ref, VSPath.vehicleCoolantTemp);
+    get(socket, ref, VSPath.vehicleHazardLightOn);
+    get(socket, ref, VSPath.vehicleHighBeamOn);
+    get(socket, ref, VSPath.vehicleLowBeamOn);
+    get(socket, ref, VSPath.vehicleSelectedGear);
+    get(socket, ref, VSPath.vehiclePerformanceMode);
+    get(socket, ref, VSPath.vehicleAmbientAirTemperature);
+    get(socket, ref, VSPath.vehicleParkingLightOn);
+    get(socket, ref, VSPath.vehicleTrunkLocked);
+    get(socket, ref, VSPath.vehicleTrunkOpen);
+    get(socket, ref, VSPath.vehicleAmbientAirTemperature);
+    get(socket, ref, VSPath.vehicleMIL);
+    get(socket, ref, VSPath.vehicleCruiseControlError);
+    get(socket, ref, VSPath.vehicleCruiseControlSpeedSet);
+    get(socket, ref, VSPath.vehicleCruiseControlSpeedisActive);
+    get(socket, ref, VSPath.vehicleBatteryChargingStatus);
+    get(socket, ref, VSPath.vehicleDistanceUnit);
     //
-    get(socket, VSPath.vehicleCurrLat);
-    get(socket, VSPath.vehicleCurrLng);
-    get(socket, VSPath.vehicleDesLat);
-    get(socket, VSPath.vehicleDesLng);
+    get(socket, ref, VSPath.vehicleCurrLat);
+    get(socket, ref, VSPath.vehicleCurrLng);
+    get(socket, ref, VSPath.vehicleDesLat);
+    get(socket, ref, VSPath.vehicleDesLng);
   }
 
-  static void authorize(WebSocket socket) {
+  static void authorize(WebSocket socket, WidgetRef ref) {
+    final config = ref.read(clusterConfigStateprovider);
     Map<String, dynamic> map = {
       "action": "authorize",
-      "tokens": VehicleSignalConfig.authToken,
+      "tokens": config.kuksaAuthToken,
       "requestId": requestId
     };
     socket.add(jsonEncode(map));
   }
 
-  static void get(WebSocket socket, String path) {
+  static void get(WebSocket socket, WidgetRef ref, String path) {
+    final config = ref.read(clusterConfigStateprovider);
     Map<String, dynamic> map = {
       "action": "get",
-      "tokens": VehicleSignalConfig.authToken,
+      "tokens": config.kuksaAuthToken,
       "path": path,
       "requestId": requestId
     };
     socket.add(jsonEncode(map));
   }
 
-  static void set(WebSocket socket, String path, String value) {
+  static void set(WebSocket socket, WidgetRef ref, String path, String value) {
+    final config = ref.read(clusterConfigStateprovider);
     Map<String, dynamic> map = {
       "action": "set",
-      "tokens": VehicleSignalConfig.authToken,
+      "tokens": config.kuksaAuthToken,
       "path": path,
       "requestId": requestId,
       "value": value
@@ -112,10 +116,11 @@ class VISS {
     socket.add(jsonEncode(map));
   }
 
-  static void subscribe(WebSocket socket, String path) {
+  static void subscribe(WebSocket socket, WidgetRef ref, String path) {
+    final config = ref.read(clusterConfigStateprovider);
     Map<String, dynamic> map = {
       "action": "subscribe",
-      "tokens": VehicleSignalConfig.authToken,
+      "tokens": config.kuksaAuthToken,
       "path": path,
       "requestId": requestId
     };
@@ -308,8 +313,8 @@ class VISS {
   }
 }
 
-void updatePolyline(vehicleSignal, polyLineState) {
-  getJsonData(vehicleSignal.state.currLat, vehicleSignal.state.currLng,
+void updatePolyline(WidgetRef ref, vehicleSignal, polyLineState) {
+  getJsonData(ref, vehicleSignal.state.currLat, vehicleSignal.state.currLng,
           vehicleSignal.state.desLat, vehicleSignal.state.desLng)
       .then((polylineList) {
     polyLineState.update(

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 class VehicleSignal {
   VehicleSignal({
     required this.speed,
@@ -32,8 +34,6 @@ class VehicleSignal {
     // map coordinates
     required this.currLat,
     required this.currLng,
-    required this.srcLat,
-    required this.srcLng,
     required this.desLat,
     required this.desLng,
   });
@@ -69,8 +69,6 @@ class VehicleSignal {
 
   final double currLat;
   final double currLng;
-  final double srcLat;
-  final double srcLng;
   final double desLat;
   final double desLng;
 
@@ -107,8 +105,6 @@ class VehicleSignal {
     // map coordinates
     double? currLat,
     double? currLng,
-    double? srcLat,
-    double? srcLng,
     double? desLat,
     double? desLng,
   }) {
@@ -149,8 +145,6 @@ class VehicleSignal {
       //
       currLat: currLat ?? this.currLat,
       currLng: currLng ?? this.currLng,
-      srcLat: srcLat ?? this.srcLat,
-      srcLng: srcLng ?? this.srcLng,
       desLat: desLat ?? this.desLat,
       desLng: desLng ?? this.desLng,
     );

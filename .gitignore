@@ -53,3 +53,9 @@ app.*.map.json
 /log.txt
 pubspec.lock
 .vssclient_history
+/windows/
+/linux/
+/test/
+/web/
+.metadata
+analysis_options.yaml

@@ -1,4 +1,5 @@
-// ignore_for_file: file_names
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -20,6 +21,7 @@ class _NavigationHomeState extends ConsumerState<NavigationHome> {
   Timer timerPolyline = Timer.periodic(const Duration(hours: 10), ((timer) {}));
   double pathStroke = 5;
   late MapController mapController;
+  // randomly initialization of the variable
   LatLng src = LatLng(31.71, 76.95);
   LatLng markerLocation = LatLng(31.71, 76.95);
 
@@ -59,8 +61,8 @@ class _NavigationHomeState extends ConsumerState<NavigationHome> {
         timerPolyline.cancel();
         timerPolyline =
             Timer.periodic(const Duration(seconds: 10), (timer) async {
-          List data = await getJsonData(
-              vehicle.currLat, vehicle.currLng, vehicle.desLat, vehicle.desLng);
+          List data = await getJsonData(ref, vehicle.currLat, vehicle.currLng,
+              vehicle.desLat, vehicle.desLng);
           // print(data);
           List<LatLng> currList =
               data.map((element) => LatLng(element[1], element[0])).toList();

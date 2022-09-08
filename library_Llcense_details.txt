@@ -6,7 +6,7 @@ Libraries and Dependencies
     - meta :BSD-3-Clause
     - flutter
     - state_notifier : MIT
-    - riverpod : MIT 
+    - riverpod : MIT
 ---------------------------------
 * flutter_hooks: ^0.18.5: MIT
     - flutter
@@ -19,20 +19,20 @@ Libraries and Dependencies
     - riverpod
     - state_notifier
 ---------------------------------
-* flutter_map :BSD-3-Clause 
-    - async : BSD-3-Clause 
+* flutter_map :BSD-3-Clause
+    - async : BSD-3-Clause
     - collection
     - meta
     - flutter
-    - http : BSD-3-Clause 
+    - http : BSD-3-Clause
     - http_parser
-    - path : BSD-3-Clause 
-    - source_span : BSD-3-Clause 
-    - term_glyph : BSD-3-Clause 
-    - string_scanner : BSD-3-Clause 
-    - typed_data : BSD-3-Clause 
+    - path : BSD-3-Clause
+    - source_span : BSD-3-Clause
+    - term_glyph : BSD-3-Clause
+    - string_scanner : BSD-3-Clause
+    - typed_data : BSD-3-Clause
     - latlong2 : Apache-2.0
-    - intl : BSD-3-Clause 
+    - intl : BSD-3-Clause
     - clock : Apache-2.0
     - polylabel : BSD-3-Clause
     - positioned_tap_detector_2 : MIT
@@ -43,5 +43,10 @@ Libraries and Dependencies
     - quiver : Apache-2.0
     - matcher : BSD-3-Clause
     - stack_trace : BSD-3-Clause
-    - vector_math : Zlib, BSD-3-Clause 
+    - vector_math : Zlib, BSD-3-Clause
+---------------------------------
+* yaml: MIT
+    - collection
+    - source_span
+    - string_scanner
 ---------------------------------
