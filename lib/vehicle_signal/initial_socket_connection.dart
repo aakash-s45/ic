@@ -23,7 +23,9 @@ class InitialScreen extends ConsumerWidget {
       },
       error: (e, stk) {
         print(e);
-        ref.refresh(sockConnectprovider(client));
+        Future.delayed(const Duration(milliseconds: 700), (() {
+          ref.refresh(sockConnectprovider(client));
+        }));
         return const Scaffold(
           backgroundColor: Colors.black,
           body: NoticeWidget(

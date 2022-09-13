@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_cluster_dashboard/cluster_config.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_cluster_dashboard/map/networkPolyline.dart';
@@ -34,6 +35,7 @@ class _NavigationHomeState extends ConsumerState<NavigationHome> {
       var vehicle = ref.read(vehicleSignalProvider);
       var polylineDB = ref.read(polyLineStateProvider);
       final polylineDBNotifier = ref.read(polyLineStateProvider.notifier);
+      final clusterConfig = ref.read(clusterConfigStateprovider);
       // timer for updating map center and zoom
       timerCurrLocation = Timer.periodic(const Duration(seconds: 2), (timer) {
         polylineDB = ref.read(polyLineStateProvider);
@@ -57,13 +59,12 @@ class _NavigationHomeState extends ConsumerState<NavigationHome> {
       });
 
       // update polyline in polyline db
-      if (polylineDB.currPolyLineList.isEmpty) {
+      if (polylineDB.currPolyLineList.isEmpty && clusterConfig.orsApiKey.isNotEmpty) {
         timerPolyline.cancel();
         timerPolyline =
             Timer.periodic(const Duration(seconds: 10), (timer) async {
           List data = await getJsonData(ref, vehicle.currLat, vehicle.currLng,
               vehicle.desLat, vehicle.desLng);
-          // print(data);
           List<LatLng> currList =
               data.map((element) => LatLng(element[1], element[0])).toList();
           polylineDBNotifier.update(currPolyLineList: currList);

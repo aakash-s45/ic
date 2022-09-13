@@ -22,8 +22,13 @@ class _GetConfigState extends ConsumerState<GetConfig> {
       final configStateProvider = ref.read(clusterConfigStateprovider.notifier);
 
       String configFilePath = '/etc/xdg/AGL/flutter-cluster-dashboard.yaml';
-      // String configFilePath = '/Users/aakash/Desktop/test/cluster_config.yaml';
+      String orsKeyFilePath = '/etc/default/openroutekey';
+      
+      String keyContent = "";
+
       final configFile = File(configFilePath);
+      final orsKeyFile = File(orsKeyFilePath);
+
       configFile.readAsString().then((content) {
         final dynamic yamlMap = loadYaml(content);
         configStateProvider.update(
@@ -31,10 +36,18 @@ class _GetConfigState extends ConsumerState<GetConfig> {
           port: yamlMap['port'],
           homeLat: yamlMap['homeLat'],
           homeLng: yamlMap['homeLng'],
-          orsApiKey: yamlMap['orsAPIKey'],
           orsPathParam: yamlMap['orsPathParam'],
           kuksaAuthToken: yamlMap['kuskaAuthToken'],
         );
+      });
+
+      orsKeyFile.readAsString().then((content) {
+        keyContent = content.split(':')[1].trim();
+        if (keyContent.isNotEmpty && keyContent != 'YOU_NEED_TO_SET_IT_IN_LOCAL_CONF') {
+          configStateProvider.update(orsApiKey: keyContent);
+        } else {
+          print("WARNING: openrouteservice API Key not found !");
+        }
       });
     });
   }
@@ -47,7 +60,6 @@ class _GetConfigState extends ConsumerState<GetConfig> {
         config.kuksaAuthToken == "" ||
         config.homeLat == 0 ||
         config.homeLng == 0 ||
-        config.orsApiKey == "" ||
         config.orsPathParam == "") {
       return Scaffold(
         body: Center(

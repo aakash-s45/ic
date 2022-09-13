@@ -31,7 +31,7 @@ class NetworkHelper {
       String data = response.body;
       return jsonDecode(data);
     } else {
-      print(response.statusCode);
+      print("Warning: API Response Code: ${response.statusCode}");
     }
   }
 }
@@ -53,10 +53,16 @@ Future getJsonData(
       endLng: endLng,
     );
     try {
-      var data = await network.getData(ref);
-      return data['features'][0]['geometry']['coordinates'];
+      final apikey = ref.read(clusterConfigStateprovider).orsApiKey;
+      if (apikey.isNotEmpty) {
+        var data = await network.getData(ref);
+        return data['features'][0]['geometry']['coordinates'];
+      }
+      else {
+        return [];
+      }
     } catch (error) {
-      print(error);
+      print('Warning: Something Wrong with openstreet API Key !');
       return [];
     }
   }
