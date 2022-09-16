@@ -10,14 +10,12 @@ final sockConnectprovider = FutureProvider.family<WebSocket, HttpClient>(
 
 // load certificates and set context and returns http client
 Future<HttpClient> initializeClient() async {
-  ByteData dataCA = await rootBundle.load('assets/cert/CA.pem');
   ByteData dataCert = await rootBundle.load('assets/cert/Client.pem');
   ByteData dataKey = await rootBundle.load('assets/cert/Client.key');
 
   SecurityContext ctx = SecurityContext.defaultContext;
   ctx.useCertificateChainBytes(dataCert.buffer.asUint8List());
   ctx.usePrivateKeyBytes(dataKey.buffer.asUint8List());
-  ctx.setTrustedCertificatesBytes(dataCA.buffer.asUint8List());
   HttpClient client = HttpClient(context: ctx)
     ..findProxy = null
     ..badCertificateCallback = (cert, host, port) {

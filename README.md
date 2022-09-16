@@ -6,36 +6,19 @@ Instrument Cluster for AGL flutter build
 ![Active Indicatos Screenshot](screenshots/ss_indicator_active.png)
 ![Map Screenshot](screenshots/ss_map.png)
 
+*To run this app, we need Flutter SDK, KUKSA server, free account at openrouteservice.org for the API key and config.YAML file*
+
 #Steps to run the app
 
-*Basic Flutter SDK is required to run this app locally*
+- Run KUSKA.VAL server. For more details, checkout [this](https://github.com/eclipse/kuksa.val/tree/master/kuksa-val-server)
+- Install the kuksa_viss_client. Follow [this](https://github.com/eclipse/kuksa.val/tree/master/kuksa_viss_client)
+- Connect to server, authorize then updateVSSTree using [steering_switch_signal.json](extras/steering_switch_signal.json)
+- Create a config.YAML file. Reference: [cluster_config.yaml](extras/cluster_config.yaml)
+- Create a file for API key. Reference: [openrouteservice](extras/openrouteservice)
+- Update the path of both files in the source code. [Here](lib/cluster_config.dart#L24-L25) 
+ 
+- Go to the project directory
+- First run `flutter create .`
+- Then to run the app `flutter run`
 
-1. Go to the project directory
-2. First run `flutter create .`
-3. Then to run the app `flutter run`
-
-
-As of now kuksa.val is added to get and subscribe to the following paths:
-
-1. speed
-2. rpm
-3. fuelLevel
-4. coolantTemperature
-5. cruiseControlSpeed
-6. isLeftIndicator
-7. isRightIndicator
-8. selectedGear
-9. performanceMode
-10. ambientAirTemp
-11. isLowBeam
-12. isHighBeam
-13. isParkingOn
-14. isHazardLightOn
-15. isMILon
-16. isCruiseControlActive
-17. isCruiseControlError
-18. isBatteryCharging
-19. isTrunkLocked (not used in UI)
-20. isTrunkOpen (not used in UI)
-21. travelledDistance (not used in UI)
-
+*Note: Set the appropriate permission in the platform specific file for network and file system access*
