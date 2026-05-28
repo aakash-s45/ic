@@ -22,3 +22,5 @@ Instrument Cluster for AGL flutter build
 - Then to run the app `flutter run`
 
 *Note: Set the appropriate permission in the platform specific file for network and file system access*
+
+Latest source: [here](https://gerrit.automotivelinux.org/gerrit/admin/repos/apps/flutter-instrument-cluster,general)
